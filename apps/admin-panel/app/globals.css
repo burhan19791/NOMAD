@@ -1,0 +1,178 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/assets/fonts/Outfit-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/assets/fonts/Outfit-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/assets/fonts/Outfit-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/assets/fonts/Outfit-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/assets/fonts/Outfit-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/assets/fonts/Outfit-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+}
+@theme {
+  /* colors */
+  --color-blue: var(--color-blue);
+  --color-blue-light: var(--color-blue-light);
+
+  --color-green: var(--color-green);
+  --color-green-light: var(--color-green-light);
+
+  --color-yellow: var(--color-yellow);
+  --color-yellow-light: var(--color-yellow-light);
+
+  --color-purple: #var(--color-purple); /* stronger purple for badges/text */
+  --color-purple-light: var(
+    --color-purple-light
+  ); /* lighter purple bg for badges */
+
+  --color-error: var(--color-error);
+  --color-error-light: var(--color-error-light);
+
+  --color-success: var(--color-success);
+  --color-success-light: var(--color-success-light);
+
+  --color-background: var(--background);
+  --color-card-background: var(--card-background);
+  --color-font-primary: var(--font-primary);
+  --color-font-light: var(--font-light);
+  --color-inner-card: var(--inner-card);
+  --color-inner-card-border: #e5e7eb;
+  --color-inner-card-hover: #f3f4f6;
+  --color-inner-card-border: var(--inner-card-border);
+  --color-inner-card-hover: var(--inner-card-hover);
+
+  /* fonts */
+  --font-sans: 'Outfit', sans-serif;
+}
+
+:root {
+  /* colors */
+  --color-blue: #4b93ff;
+  --color-blue-light: #c9dfff; /* a lil darker than before for better contrast */
+
+  --color-green: #1ea6d3;
+  --color-green-light: #bae5f0; /* subtle bump for readability */
+
+  --color-yellow: #f1be46;
+  --color-yellow-light: #f9f1c5; /* softer but more readable */
+
+  --color-purple: #7c6bff;
+  --color-purple-light: #d6ccff; /* keep it light but clearer */
+
+  --color-error: #ef476f;
+  --color-error-light: #f9c3ce;
+
+  --color-success: #06d6a0;
+  --color-success-light: #b7ead9;
+
+  --background: #f3f4f6;
+  --card-background: #ffffff;
+
+  --font-primary: #000000; /* black text */
+  --font-light: #6b7280; /* gray text */
+
+  --inner-card: #f9f9f9;
+  --inner-card-border: #e5e7eb;
+  --inner-card-hover: #f3f4f6;
+}
+
+.dark {
+  --background: #030303;
+  --card-background: #181818;
+  --font-primary: #ffffff; /* white text */
+  --font-light: #9ca3af; /* Tailwind's gray-400 or similar for dark mode */
+  --color-inner-card: #2a2a2a;
+  --color-inner-card-border: #222222;
+  --color-inner-card-hover: #202020;
+
+  --color-blue: #4b93ff;
+  --color-blue-light: #c9dfff; /* a lil darker than before for better contrast */
+
+  --color-green: #1ea6d3;
+  --color-green-light: #bae5f0; /* subtle bump for readability */
+
+  --color-yellow: #f1be46;
+  --color-yellow-light: #f9f1c5; /* softer but more readable */
+
+  --color-purple: #7c6bff;
+  --color-purple-light: #d6ccff; /* keep it light but clearer */
+
+  --color-error: #ef476f;
+  --color-error-light: #f9c3ce;
+
+  --color-success: #06d6a0;
+  --color-success-light: #b7ead9;
+}
+
+/* Custom utility classes for table */
+/* Light mode tooltip */
+.apexcharts-tooltip {
+  color: #6b7280 !important; /* Tailwind slate-500 */
+  background: #fff !important;
+}
+
+/* Dark mode tooltip */
+.dark .apexcharts-tooltip {
+  color: #9ca3af !important; /* Tailwind slate-400 */
+  background: #202020 !important;
+}
+
+/* Global body and base styles */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-font-primary font-sans;
+  }
+}
