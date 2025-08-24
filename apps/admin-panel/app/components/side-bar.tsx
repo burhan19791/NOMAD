@@ -89,7 +89,6 @@ const SideBar = ({ isOpen }: Props) => {
             mainIcon={<FaShoppingBag />}
             items={[
               { label: 'List View', route: '/products/list' },
-              { label: 'Grid View', route: '/products/grid' },
               { label: 'Overview', route: '/products/overview' },
               { label: 'Create Product', route: '/products/create' },
             ]}

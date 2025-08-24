@@ -1,60 +1,64 @@
-"use client";
+'use client';
 
-import CardTitle from "@/app/components/card-title";
-import ProductsOverviewCard from "@/app/components/products/productsList/products-overview-cards/products-overview-cards";
-import { Breadcrumb, BreadcrumbItem, Button } from "flowbite-react";
+import CardTitle from '@/app/components/card-title';
+import ProductsOverviewCard from '@/app/components/products/productsList/products-overview-cards/products-overview-cards';
+import { Breadcrumb, BreadcrumbItem, Button } from 'flowbite-react';
 import {
   FaBox,
   FaDollarSign,
   FaExclamationTriangle,
   FaWallet,
   FaShoppingBag,
-} from "react-icons/fa";
-import { TiPlus } from "react-icons/ti";
-import ProductsGridCards from "@/app/components/products/productsGrid/products-grid-card";
+  FaClipboardList,
+} from 'react-icons/fa';
+import { TiPlus } from 'react-icons/ti';
+import ProductsGridCards from '@/app/components/products/productsGrid/products-grid-card';
+import { useRouter } from 'next/navigation';
 
 const ProductsList = () => {
+  const router = useRouter();
+
   const products = [
     {
-      imageSrc: "/images/shirt-guy.png",
-      title: "Black Hoodie",
+      imageSrc: '/images/shirt-guy.png',
+      title: 'Black Hoodie',
       price: 75.99,
-      description: "Comfortable and warm black hoodie.",
+      description: 'Comfortable and warm black hoodie.',
       rating: 4,
       reviewsCount: 20,
-      category: "Apparel",
+      category: 'Apparel',
     },
     {
-      imageSrc: "/images/nomad-cap.png",
-      title: "Nomad Cap",
+      imageSrc: '/images/nomad-cap.png',
+      title: 'Nomad Cap',
       price: 25.0,
-      description: "Stylish cap for everyday wear and stuff.",
+      description: 'Stylish cap for everyday wear and stuff.',
       rating: 5,
       reviewsCount: 15,
-      category: "Accessories",
+      category: 'Accessories',
     },
     {
-      imageSrc: "/images/cargo-pants.png",
-      title: "Cargo Pants",
+      imageSrc: '/images/cargo-pants.png',
+      title: 'Cargo Pants',
       price: 59.99,
-      description: "Durable cargo pants with lots of pockets.",
+      description: 'Durable cargo pants with lots of pockets.',
       rating: 3,
       reviewsCount: 8,
-      category: "Apparel",
+      category: 'Apparel',
     },
     {
-      imageSrc: "/images/cargo-pants.png",
-      title: "Cargo Pants",
+      imageSrc: '/images/cargo-pants.png',
+      title: 'Cargo Pants',
       price: 59.99,
-      description: "Durable cargo pants with lots of pockets.",
+      description: 'Durable cargo pants with lots of pockets.',
       rating: 3,
       reviewsCount: 8,
-      category: "Apparel",
+      category: 'Apparel',
     },
   ];
 
   return (
-    <div className="lg:ml-20 xl:ml-64 p-6">
+    <div className="p-6 lg:ml-20 xl:ml-64">
       <Breadcrumb className="mb-6">
         <BreadcrumbItem href="#" icon={FaShoppingBag}>
           Products
@@ -62,7 +66,7 @@ const ProductsList = () => {
         <BreadcrumbItem href="#">Gird View</BreadcrumbItem>
       </Breadcrumb>
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-12 xl:col-span-3 md:col-span-6">
+        <div className="col-span-12 md:col-span-6 xl:col-span-3">
           <ProductsOverviewCard
             title="Total Revenue"
             description="Revenue from products"
@@ -74,7 +78,7 @@ const ProductsList = () => {
           />
         </div>
 
-        <div className="col-span-12 xl:col-span-3 md:col-span-6">
+        <div className="col-span-12 md:col-span-6 xl:col-span-3">
           <ProductsOverviewCard
             title="Total Products"
             description="Number of products"
@@ -85,10 +89,10 @@ const ProductsList = () => {
           />
         </div>
 
-        <div className="col-span-12 xl:col-span-3 md:col-span-6">
+        <div className="col-span-12 md:col-span-6 xl:col-span-3">
           <ProductsOverviewCard
             title="Out of Stock"
-            description="Products fully out of stock"
+            description="Products out of stock"
             mainValue={12}
             percentageChange="-5%"
             percentageColor="danger"
@@ -96,7 +100,7 @@ const ProductsList = () => {
           />
         </div>
 
-        <div className="col-span-12 xl:col-span-3 md:col-span-6">
+        <div className="col-span-12 md:col-span-6 xl:col-span-3">
           <ProductsOverviewCard
             title="Inventory Value"
             description="Value of current stock"
@@ -106,21 +110,30 @@ const ProductsList = () => {
         </div>
 
         {/* Header & Add Product Button */}
-        <div className="col-span-12 mt-6 flex justify-between items-center">
+        <div className="col-span-12 mt-6 flex items-center justify-between">
           <CardTitle title="Products Grid" />
-          <Button
-              className="bg-purple dark:bg-purple dark:hover:bg-purple-700 gap-2 py-2 px-3 md:py-5 md:px-4 hover:bg-purple-700  text-white"
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={() => router.push('/products/list')}
+              className="bg-purple dark:bg-purple gap-2 px-3 py-2 text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-300 md:px-4 md:py-5 dark:hover:bg-purple-700"
             >
-              <TiPlus className="text-lg"/>
+              <FaClipboardList />
+            </Button>
+            <Button
+              onClick={() => router.push('products/create')}
+              className="bg-purple dark:bg-purple gap-2 px-3 py-2 text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-300 md:px-4 md:py-5 dark:hover:bg-purple-700"
+            >
+              <TiPlus className="text-lg" />
               <div className="hidden md:flex">Add New Product</div>
             </Button>
+          </div>
         </div>
 
         {/* Map the products array here */}
         {products.map((product, index) => (
           <div
             key={index}
-            className="lg:col-span-3 sm:col-span-6 col-span-12 md:col-span-6"
+            className="col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-3"
           >
             <ProductsGridCards
               imageSrc={product.imageSrc}

@@ -18,18 +18,29 @@ import {
   TableBody,
   TableCell,
   Badge,
-  Pagination,
   Checkbox,
 } from 'flowbite-react';
 import { Eye, MoreHorizontal, Pencil, Trash } from 'lucide-react';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 import { useState } from 'react';
-import { FaSearch, FaSlidersH, FaStar } from 'react-icons/fa';
+import { FaFilter, FaSearch, FaSlidersH, FaSort, FaStar } from 'react-icons/fa';
 import CustomSearch from '@/app/components/custom-search';
+import { useRouter } from 'next/navigation';
 
 export default function ProductsTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selected, setSelected] = useState<string[]>([]);
+
+  const router = useRouter();
 
   const onPageChange = (page: number) => setCurrentPage(page);
 
@@ -50,35 +61,32 @@ export default function ProductsTable() {
     {
       id: 'P1001',
       title: 'Black Hoodie',
-      description: 'Comfortable black hoodie...',
       category: 'Apparel',
       price: 49.99,
       rating: 4.5,
       stock: 25,
-      createdAt: '2025-07-20',
-      updatedAt: '2025-08-01',
+      createdAt: '20-07-2025',
+      updatedAt: '07-08-2025',
     },
     {
       id: 'P1002',
       title: 'Nomad Cap',
-      description: 'Stylish cap for...',
       category: 'Accessories',
       price: 19.99,
       rating: 4.1,
       stock: 100,
-      createdAt: '2025-06-15',
-      updatedAt: '2025-07-28',
+      createdAt: '15-06-2025',
+      updatedAt: '28-07-2025',
     },
     {
       id: 'P1003',
       title: 'Cargo Pants',
-      description: 'Durable cargo pants...',
       category: 'Apparel',
       price: 59.99,
       rating: 4.7,
       stock: 0,
-      createdAt: '2025-05-30',
-      updatedAt: '2025-07-25',
+      createdAt: '30-05-2025',
+      updatedAt: '25-07-2025',
     },
   ];
 
@@ -87,6 +95,13 @@ export default function ProductsTable() {
     { value: 'in-stock', label: 'In Stock' },
     { value: 'low-stock', label: 'Low Stock' },
     { value: 'out-of-stock', label: 'Out of Stock' },
+  ];
+
+  const categoryOptions = [
+    { value: 'all', label: 'All' },
+    { value: 'electronics', label: 'Electronics' },
+    { value: 'apparel', label: 'Apparel' },
+    { value: 'accessories', label: 'Accessories' },
   ];
 
   const getStockBadge = (stock: number) => {
@@ -125,7 +140,11 @@ export default function ProductsTable() {
             />
 
             {/* Sort By Select */}
-            <SortBySelect />
+            <CustomSelect
+              placeholder="Category"
+              smIcon={<FaFilter />}
+              options={categoryOptions}
+            />
           </div>
         </div>
       </div>
@@ -135,34 +154,32 @@ export default function ProductsTable() {
         <Table hoverable>
           <TableHead className="bg-inner-card border-inner-card-border border-b">
             <TableRow>
-              <TableHeadCell className="dark:bg-inner-card w-12 bg-white">
-                <Checkbox
-                  className="dark:bg-inner-card"
-                  checked={selected.length === products.length}
-                  onChange={toggleSelectAll}
-                  aria-label="Select all products"
-                />
-              </TableHeadCell>
               <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
                 Image
               </TableHeadCell>
               <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
-                Product ID
+                <span className="flex items-center gap-2">
+                  Product ID <FaSort />
+                </span>
               </TableHeadCell>
               <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
-                Title
-              </TableHeadCell>
-              <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
-                Description
+                <span className="flex items-center gap-2">
+                  Title
+                  <FaSort />
+                </span>
               </TableHeadCell>
               <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
                 Category
               </TableHeadCell>
               <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
-                Price
+                <span className="flex items-center gap-2">
+                  Price <FaSort />
+                </span>
               </TableHeadCell>
               <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
-                Rating
+                <span className="flex items-center gap-2">
+                  Rating <FaSort />
+                </span>
               </TableHeadCell>
               <TableHeadCell className="text-font-light dark:bg-inner-card bg-white whitespace-nowrap">
                 Stock
@@ -185,14 +202,6 @@ export default function ProductsTable() {
                 key={product.id}
                 className="hover:dark:bg-inner-card transition"
               >
-                <TableCell className="w-12">
-                  <Checkbox
-                    className="dark:bg-inner-card"
-                    checked={selected.includes(product.id)}
-                    onChange={() => toggleSelect(product.id)}
-                    aria-label={`Select product ${product.id}`}
-                  />
-                </TableCell>
                 <TableCell className="whitespace-nowrap">
                   <div className="dark:bg-inner-card min-h-8 min-w-8 rounded bg-gray-200"></div>
                 </TableCell>
@@ -201,9 +210,6 @@ export default function ProductsTable() {
                 </TableCell>
                 <TableCell className="text-font-light">
                   {product.title}
-                </TableCell>
-                <TableCell className="text-font-light">
-                  {product.description}
                 </TableCell>
                 <TableCell className="text-font-light">
                   {product.category}
@@ -233,17 +239,18 @@ export default function ProductsTable() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       align="end"
-                      className="bg-inner-card border-inner-card-border w-36 border"
+                      className="bg-inner-card border-inner-card-border z-50 w-36 border"
                     >
-                      <DropdownMenuItem className="text-font-light flex items-center gap-2">
-                        <Eye className="text-muted-foreground h-4 w-4" /> View
+                      <DropdownMenuItem
+                        onClick={() => router.push('/products/overview')}
+                        className="text-font-light flex items-center gap-2"
+                      >
+                        <Eye className="text-muted-foreground h-4 w-4" />
+                        View
                       </DropdownMenuItem>
                       <DropdownMenuItem className="text-font-light flex items-center gap-2">
-                        <Pencil className="text-muted-foreground h-4 w-4" />{' '}
+                        <Pencil className="text-muted-foreground h-4 w-4" />
                         Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="flex items-center gap-2 text-red-600 focus:text-red-600">
-                        <Trash className="h-4 w-4 text-red-600" /> Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -254,16 +261,37 @@ export default function ProductsTable() {
         </Table>
       </div>
 
-      <div className="mt-4">
-        <Pagination
-          className="flex items-center justify-between"
-          layout="table"
-          itemsPerPage={10}
-          totalItems={products.length}
-          onPageChange={onPageChange}
-          currentPage={currentPage}
-          showIcons
-        />
+      <div className="mt-6 flex justify-end">
+        <div className="flex overflow-x-auto sm:justify-center">
+          <Pagination>
+            <PaginationContent className="flex gap-2">
+              <PaginationItem className="bg-inner-card rounded-md border border-gray-200 dark:border-stone-700">
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem className="hover:bg-inner-card rounded-md">
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  className="bg-inner-card dark:bg-inner-card border-gray-200 dark:border-stone-700"
+                  href="#"
+                  isActive
+                >
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem className="hover:bg-inner-card rounded-md">
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem className="hover:bg-inner-card rounded-md">
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem className="bg-inner-card rounded-md border border-gray-200 dark:border-stone-700">
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
       </div>
     </div>
   );
