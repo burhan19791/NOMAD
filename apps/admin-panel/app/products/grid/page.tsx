@@ -21,40 +21,65 @@ const ProductsList = () => {
   const products = [
     {
       imageSrc: '/images/shirt-guy.png',
-      title: 'Black Hoodie',
-      price: 75.99,
-      description: 'Comfortable and warm black hoodie.',
-      rating: 4,
-      reviewsCount: 20,
+      title: 'Premium Cotton Blend Hoodie',
+      price: 79.99,
+      description:
+        'Ultra-soft cotton blend hoodie perfect for everyday comfort. Features a modern fit with ribbed cuffs and hem.',
+      rating: 4.6,
+      reviewsCount: 128,
       category: 'Apparel',
     },
     {
       imageSrc: '/images/nomad-cap.png',
-      title: 'Nomad Cap',
-      price: 25.0,
-      description: 'Stylish cap for everyday wear and stuff.',
-      rating: 5,
-      reviewsCount: 15,
+      title: 'Classic Baseball Cap',
+      price: 24.99,
+      description:
+        'Timeless baseball cap with embroidered logo. Made from breathable cotton twill with adjustable strap.',
+      rating: 4.3,
+      reviewsCount: 89,
       category: 'Accessories',
     },
     {
       imageSrc: '/images/cargo-pants.png',
-      title: 'Cargo Pants',
-      price: 59.99,
-      description: 'Durable cargo pants with lots of pockets.',
-      rating: 3,
-      reviewsCount: 8,
+      title: 'Utility Cargo Pants',
+      price: 64.99,
+      description:
+        'Functional cargo pants with multiple pockets. Durable cotton canvas construction, perfect for outdoor activities.',
+      rating: 4.4,
+      reviewsCount: 67,
       category: 'Apparel',
     },
     {
-      imageSrc: '/images/cargo-pants.png',
-      title: 'Cargo Pants',
-      price: 59.99,
-      description: 'Durable cargo pants with lots of pockets.',
-      rating: 3,
-      reviewsCount: 8,
+      imageSrc: '/images/shirt-guy.png',
+      title: 'Graphic Print T-Shirt',
+      price: 34.99,
+      description:
+        'Vibrant graphic print t-shirt made from 100% organic cotton. Comfortable fit with unique artwork design.',
+      rating: 4.7,
+      reviewsCount: 156,
       category: 'Apparel',
     },
+    {
+      imageSrc: '/images/nomad-cap.png',
+      title: 'Leather Crossbody Bag',
+      price: 89.99,
+      description:
+        'Handcrafted genuine leather crossbody bag with adjustable strap. Features multiple compartments and premium hardware.',
+      rating: 4.8,
+      reviewsCount: 203,
+      category: 'Accessories',
+    },
+    {
+      imageSrc: '/images/cargo-pants.png',
+      title: 'Denim Jacket',
+      price: 94.99,
+      description:
+        'Classic denim jacket with modern styling. Pre-washed for comfort, featuring chest pockets and adjustable waist.',
+      rating: 4.5,
+      reviewsCount: 112,
+      category: 'Apparel',
+    },
+    
   ];
 
   return (
@@ -96,7 +121,7 @@ const ProductsList = () => {
             mainValue={12}
             percentageChange="-5%"
             percentageColor="danger"
-            icon={<FaExclamationTriangle className="text-xl" />}
+            icon={<FaExclamationTriangle className="text-error text-xl" />}
           />
         </div>
 
@@ -130,22 +155,21 @@ const ProductsList = () => {
         </div>
 
         {/* Map the products array here */}
-        {products.map((product, index) => (
-          <div
-            key={index}
-            className="col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-3"
-          >
-            <ProductsGridCards
-              imageSrc={product.imageSrc}
-              title={product.title}
-              price={product.price}
-              description={product.description}
-              rating={product.rating}
-              reviewsCount={product.reviewsCount}
-              category={product.category}
-            />
-          </div>
-        ))}
+        <div className="col-span-12 grid grid-cols-1 gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {products.map((product, index) => (
+            <div key={index} className="h-full">
+              <ProductsGridCards
+                imageSrc={product.imageSrc}
+                title={product.title}
+                price={product.price}
+                description={product.description}
+                rating={product.rating}
+                reviewsCount={product.reviewsCount}
+                category={product.category}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

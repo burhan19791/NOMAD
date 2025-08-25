@@ -1,6 +1,6 @@
-import Image from "next/image";
-import React from "react";
-import { FaStar } from "react-icons/fa";
+import Image from 'next/image';
+import React from 'react';
+import { FaStar } from 'react-icons/fa';
 
 type ProductsGridCardsProps = {
   imageSrc: string;
@@ -29,39 +29,51 @@ const ProductsGridCards = ({
         <FaStar
           key={i}
           className={
-            i <= rating ? "text-yellow text-xs" : "text-font-light text-xs"
+            i <= rating ? 'text-yellow text-xs' : 'text-font-light text-xs'
           }
-        />
+        />,
       );
     }
     return stars;
   };
 
   return (
-    <div className="p-2 rounded-lg">
-      <div className="relative w-full h-64 bg-gray-300 rounded-xl overflow-hidden mb-4">
+    <div className="flex h-full flex-col rounded-lg">
+      {/* Image Section - Fixed height */}
+      <div className="dark:bg-card-background/50 relative mb-4 h-72 w-full overflow-hidden bg-gray-200/30">
         {imageSrc && (
           <Image
             src={imageSrc}
             alt={title}
-            className="object-contain"
+            className="object-contain pt-4"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority={false}
           />
         )}
       </div>
-      <div className="mt-4">
-        <div className="flex items-center text-font-primary justify-between">
-          <div className="font-bold">{title}</div>
-          <div className="font-medium text-sm">${price}</div>
+
+      {/* Content Section - Flex grow to fill available space */}
+      <div className="flex flex-1 flex-col">
+        {/* Title and Price - Fixed at top */}
+        <div className="mb-3 flex items-start justify-between">
+          <h3 className="text-font-primary line-clamp-2 flex-1 leading-tight font-bold">
+            {title}
+          </h3>
+          <div className="text-purple ml-2 text-sm font-semibold">${price}</div>
         </div>
-        <div className="text-font-light text-xs w-2/3 mb-4">{description}</div>
-        <div className="flex items-center justify-between text-xs text-font-light font-medium mt-2">
-          <div className="flex items-center gap-1">
+
+        {/* Description - Flexible height */}
+        <p className="text-font-light mb-4 line-clamp-3 flex-1 text-sm leading-relaxed">
+          {description}
+        </p>
+
+        {/* Rating and Category - Fixed at bottom */}
+        <div className="mt-auto flex items-center justify-between text-xs font-medium">
+          <div className="text-font-light flex items-center gap-1">
             {renderStars()} ({reviewsCount})
           </div>
-          <div>{category}</div>
+          <div className="text-font-light">{category}</div>
         </div>
       </div>
     </div>
