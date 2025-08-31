@@ -180,6 +180,6 @@
 
 @layer components {
   .responsive-container {
-    @apply max-w-7xl mx-auto px-8;
+    @apply max-w-7xl mx-auto px-4 md:px-8;
   }
 }

@@ -42,7 +42,7 @@ const Topbar = ({ toggleSidebar }: Props) => {
           />
         )}
         <div className="text-medium hidden md:block">
-          Welcome Back, <span className="text-purple font-bold">Burhan</span>
+          Welcome Back, <span className="text-purple font-bold">User</span>
         </div>
       </div>
       <div className="flex items-center gap-4">

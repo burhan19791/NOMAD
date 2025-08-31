@@ -14,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+          "border border-gray-300 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 bg-gray-50 shadow-xs hover:bg-gray-200 hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
@@ -24,7 +24,7 @@ const buttonVariants = cva(
         primary:
           "bg-primary cursor-pointer text-white hover:bg-purple-700  dark:hover:bg-primary focus:ring-2 focus:ring-primary/30 focus:ring-offset-2",
         "primary-outline":
-          "border-2 border-primary text-primary hover:bg-purple-200 dark:hover:bg-purple-700 focus:ring-2 focus:ring-primary/30 focus:ring-offset-2",
+          "border-2 border-primary bg-transparent text-primary hover:bg-purple-200 dark:hover:bg-purple-700 focus:ring-2 focus:ring-primary/30 focus:ring-offset-2",
         black:
           "bg-black cursor-pointer text-white hover:bg-black/80 dark:hover:bg-black/80 focus:ring-2 focus:ring-black/30 focus:ring-offset-2",
       },

@@ -56,16 +56,20 @@ const SideBar = ({ isOpen }: Props) => {
       >
         {/* logo small show thing */}
         <div className="mb-10 flex items-center gap-1.5">
-          <div className="relative top-0 right-0 mt-0.5 h-8 w-8 lg:h-12 lg:w-12 xl:h-8 xl:w-8">
+          <div className="relative top-0 right-0 mt-0.5 h-8 w-8 lg:h-12 lg:w-12 xl:hidden">
             {isDark ? (
-              <Image src={'/images/Nomad-logo-white.png'} alt="Logo" fill />
+              <Image src={'/images/tork-symbol-logo.svg'} alt="Logo" fill />
             ) : (
-              <Image src={'/images/Nomad-logo-black.png'} alt="Logo" fill />
+              <Image src={'/images/tork-symbol-logo.svg'} alt="Logo" fill />
             )}
           </div>
-          <h1 className="text-font-primary block text-3xl font-bold lg:hidden xl:block">
-            NOMAD
-          </h1>
+          <div className="relative h-14 w-28 lg:hidden xl:block">
+            {isDark ? (
+              <Image src={'/images/tork-dark-logo.svg'} alt="Logo" fill />
+            ) : (
+              <Image src={'/images/tork-light-logo.svg'} alt="Logo" fill />
+            )}
+          </div>
         </div>
         <div className="text-font-light font-regular flex h-[550px] flex-col gap-4 overflow-y-scroll">
           <div>
@@ -91,6 +95,7 @@ const SideBar = ({ isOpen }: Props) => {
               { label: 'List View', route: '/products/list' },
               { label: 'Overview', route: '/products/overview' },
               { label: 'Create Product', route: '/products/create' },
+              { label: 'Categories', route: '/categories' },
             ]}
           />
           <SideBarExpandableLink
@@ -232,7 +237,7 @@ const SideBar = ({ isOpen }: Props) => {
               <div className="flex w-full items-center justify-between">
                 <div className="flex flex-col text-left lg:hidden xl:flex xl:flex-col">
                   <p className="text-font-primary mb-1 text-sm leading-none font-bold">
-                    Burhan Shah
+                    User Name
                   </p>
                   <p className="text-font-light text-xs leading-none tracking-widest uppercase">
                     Owner
@@ -254,7 +259,7 @@ const SideBar = ({ isOpen }: Props) => {
               <div className="h-8 min-w-8 rounded-lg bg-gray-300 dark:bg-gray-700"></div>
               <div className="text-left">
                 <p className="text-font-primary mb-1 text-sm leading-none font-bold">
-                  Burhan Shah
+                  User Name
                 </p>
                 <p className="text-font-light text-xs leading-none tracking-widest uppercase">
                   Owner
