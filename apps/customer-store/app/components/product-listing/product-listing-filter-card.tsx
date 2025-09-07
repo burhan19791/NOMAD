@@ -70,7 +70,7 @@ const ProductListingFilterCard = () => {
               <Badge
                 key={size}
                 variant="secondary"
-                className="text-xs px-2 py-1"
+                className="text-xl px-2 py-1"
               >
                 {size}
               </Badge>

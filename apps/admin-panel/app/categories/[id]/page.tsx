@@ -39,15 +39,34 @@ import {
   FaStore,
   FaCalendar,
   FaChartLine,
+  FaFilter,
+  FaPlus,
+  FaToggleOn,
+  FaToggleOff,
 } from 'react-icons/fa';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+  BreadcrumbPage,
+} from '@/components/ui/breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
 const CategoryDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isAttributeModalOpen, setIsAttributeModalOpen] = useState(false);
 
   // Mock data for the category (in real app, fetch by ID)
   const category = {
@@ -76,6 +95,78 @@ const CategoryDetailsPage = () => {
     ],
   };
 
+  // Mock data for available attributes
+  const availableAttributes = [
+    {
+      id: 'ATTR-001',
+      name: 'Size',
+      type: 'Size',
+      description: 'Product size variations',
+      values: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+      isAssigned: true,
+      isFilter: true,
+      productsCount: 1247,
+    },
+    {
+      id: 'ATTR-002',
+      name: 'Color',
+      type: 'Color',
+      description: 'Product color options',
+      values: [
+        'Red',
+        'Blue',
+        'Green',
+        'Black',
+        'White',
+        'Yellow',
+        'Purple',
+        'Orange',
+      ],
+      isAssigned: true,
+      isFilter: true,
+      productsCount: 892,
+    },
+    {
+      id: 'ATTR-003',
+      name: 'Material',
+      type: 'Text',
+      description: 'Product material type',
+      values: ['Cotton', 'Polyester', 'Leather', 'Denim', 'Silk', 'Wool'],
+      isAssigned: true,
+      isFilter: false,
+      productsCount: 567,
+    },
+    {
+      id: 'ATTR-004',
+      name: 'Brand',
+      type: 'Text',
+      description: 'Product brand name',
+      values: [
+        'Nike',
+        'Adidas',
+        'Apple',
+        'Samsung',
+        'Sony',
+        'LG',
+        'Dell',
+        'HP',
+      ],
+      isAssigned: false,
+      isFilter: false,
+      productsCount: 445,
+    },
+    {
+      id: 'ATTR-005',
+      name: 'Weight',
+      type: 'Number',
+      description: 'Product weight in grams',
+      values: ['100g', '200g', '300g', '500g', '1kg'],
+      isAssigned: false,
+      isFilter: false,
+      productsCount: 234,
+    },
+  ];
+
   const [editFormData, setEditFormData] = useState({
     name: category.name,
     description: category.description,
@@ -83,6 +174,8 @@ const CategoryDetailsPage = () => {
     icon: 'FaPaw',
     status: category.status,
   });
+
+  const [attributeFilters, setAttributeFilters] = useState(availableAttributes);
 
   const getIconComponent = (iconName: string) => {
     const icons: { [key: string]: React.ElementType } = {
@@ -107,71 +200,101 @@ const CategoryDetailsPage = () => {
   };
 
   const handleSave = () => {
+    // Handle save logic here
     console.log('Saving category:', editFormData);
     setIsEditModalOpen(false);
   };
 
   const handleDelete = () => {
+    // Handle delete logic here
     console.log('Deleting category:', category.id);
     setIsDeleteModalOpen(false);
     router.push('/categories');
   };
 
-  const IconComponent = getIconComponent(editFormData.icon);
+  const toggleAttributeAssignment = (attributeId: string) => {
+    setAttributeFilters((prev) =>
+      prev.map((attr) =>
+        attr.id === attributeId
+          ? {
+              ...attr,
+              isAssigned: !attr.isAssigned,
+              isFilter: attr.isAssigned ? false : attr.isFilter,
+            }
+          : attr,
+      ),
+    );
+  };
+
+  const toggleAttributeFilter = (attributeId: string) => {
+    setAttributeFilters((prev) =>
+      prev.map((attr) =>
+        attr.id === attributeId ? { ...attr, isFilter: !attr.isFilter } : attr,
+      ),
+    );
+  };
+
+  const getTypeBadgeColor = (type: string) => {
+    switch (type.toLowerCase()) {
+      case 'size':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+      case 'color':
+        return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300';
+      case 'text':
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'number':
+        return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300';
+      default:
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+    }
+  };
 
   return (
     <div className="p-6 lg:ml-20 xl:ml-64">
+      <Breadcrumb className="mb-6">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/">Home</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/docs/components">Components</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       {/* Header */}
       <div className="mb-8">
-        <div className="mb-4 flex items-center gap-4">
-          <Link href="/categories">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex items-center gap-2"
-            >
-              <FaArrowLeft className="text-sm" />
-              Back to Categories
-            </Button>
-          </Link>
-        </div>
-
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="bg-inner-card flex h-16 w-16 items-center justify-center rounded-xl">
-              <category.icon className="text-2xl text-gray-600 dark:text-gray-400" />
-            </div>
-            <div>
-              <h1 className="text-font-primary mb-2 text-3xl font-bold">
-                {category.name}
-              </h1>
-              <div className="flex items-center gap-3">
-                <div className="text-sm">{category.businessType}</div>
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`h-2 w-2 rounded-full ${category.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}`}
-                  ></div>
-                  <span className="text-font-light text-sm capitalize">
-                    {category.status}
-                  </span>
-                </div>
+            <Link href="/categories">
+              <div className="flex items-center gap-2 font-medium">
+                <FaArrowLeft className="text-sm" />
+                Back to Categories
               </div>
-            </div>
+            </Link>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
               <DialogTrigger asChild>
                 <Button variant="outline" className="flex items-center gap-2">
                   <FaEdit className="text-sm" />
-                  Edit Category
+                  Edit
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
                   <DialogTitle>Edit Category</DialogTitle>
-                  <DialogDescription className="text-font-light">
-                    Update the category information.
+                  <DialogDescription>
+                    Update the category information
                   </DialogDescription>
                 </DialogHeader>
 
@@ -209,8 +332,8 @@ const CategoryDetailsPage = () => {
                       Description *
                     </label>
                     <Textarea
-                      id="edit-description"
                       className="mt-2"
+                      id="edit-description"
                       placeholder="Describe what this category is for..."
                       value={editFormData.description}
                       onChange={(e) =>
@@ -355,6 +478,103 @@ const CategoryDetailsPage = () => {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+
+            {/* Attribute Selection Dialog */}
+            <Dialog
+              open={isAttributeModalOpen}
+              onOpenChange={setIsAttributeModalOpen}
+            >
+              <DialogContent className="sm:max-w-[600px]">
+                <DialogHeader>
+                  <DialogTitle>Select Attributes</DialogTitle>
+                  <DialogDescription>
+                    Choose which attributes to assign to this category. Uncheck
+                    to remove.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="max-h-96 space-y-3 overflow-y-auto">
+                  {availableAttributes.map((attribute) => (
+                    <div
+                      key={attribute.id}
+                      className="bg-inner-card rounded-lg p-4"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="mb-2 flex items-center gap-3">
+                            <Checkbox
+                              id={attribute.id}
+                              checked={
+                                attributeFilters.find(
+                                  (attr) => attr.id === attribute.id,
+                                )?.isAssigned || false
+                              }
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  // Add to assigned attributes
+                                  setAttributeFilters((prev) => [
+                                    ...prev.filter(
+                                      (attr) => attr.id !== attribute.id,
+                                    ),
+                                    {
+                                      ...attribute,
+                                      isAssigned: true,
+                                      isFilter: false,
+                                    },
+                                  ]);
+                                } else {
+                                  // Remove from assigned attributes
+                                  setAttributeFilters((prev) =>
+                                    prev.filter(
+                                      (attr) => attr.id !== attribute.id,
+                                    ),
+                                  );
+                                }
+                              }}
+                            />
+                            <h4 className="text-font-primary font-medium">
+                              {attribute.name}
+                            </h4>
+                            <Badge
+                              variant="outline"
+                              className={`text-xs ${getTypeBadgeColor(attribute.type)}`}
+                            >
+                              {attribute.type}
+                            </Badge>
+                          </div>
+                          <p className="text-font-light mb-2 text-sm">
+                            {attribute.description}
+                          </p>
+                          <div className="flex items-center gap-4 text-xs">
+                            <span className="text-font-light">
+                              {attribute.values.length} values
+                            </span>
+                            <span className="text-font-light">
+                              {attribute.productsCount} products
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <DialogFooter>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setIsAttributeModalOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => setIsAttributeModalOpen(false)}
+                  >
+                    Done
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
@@ -419,67 +639,38 @@ const CategoryDetailsPage = () => {
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      {/* Content Grid */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {/* Description */}
         <div className="bg-card-background rounded-2xl p-6">
-          <h3 className="text-font-primary mb-4 text-lg font-semibold">
+          <div className="mb-4 flex items-center gap-4">
+            <div className="bg-purple-light flex h-12 w-12 items-center justify-center rounded-md">
+              <category.icon className="text-purple text-lg" />
+            </div>
+            <div>
+              <h1 className="text-font-primary text-xl leading-none font-bold">
+                {category.name}
+              </h1>
+              <div className="flex items-center gap-3">
+                <div className="text-sm">{category.businessType}</div>
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`h-2 w-2 rounded-full ${category.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}`}
+                  ></div>
+                  <span className="text-font-light text-sm capitalize">
+                    {category.status}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3 className="text-font-primary mb-2 text-lg font-semibold">
             Description
           </h3>
+
           <p className="text-font-light leading-relaxed">
             {category.description}
           </p>
-        </div>
-
-        {/* Top Products */}
-        <div className="bg-card-background rounded-2xl p-6">
-          <h3 className="text-font-primary mb-4 text-lg font-semibold">
-            Top Products
-          </h3>
-          <div className="space-y-3">
-            {category.topProducts.map((product, index) => (
-              <div
-                key={index}
-                className="bg-inner-card flex items-center justify-between rounded-lg p-3"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-font-light text-sm font-medium">
-                    #{index + 1}
-                  </span>
-                  <span className="text-font-primary font-medium">
-                    {product.name}
-                  </span>
-                </div>
-                <Badge variant="secondary">{product.count} products</Badge>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Recent Tenants */}
-        <div className="bg-card-background rounded-2xl p-6">
-          <h3 className="text-font-primary mb-4 text-lg font-semibold">
-            Recent Stores
-          </h3>
-          <div className="space-y-3">
-            {category.recentTenants.map((tenant, index) => (
-              <div
-                key={index}
-                className="bg-inner-card flex items-center justify-between rounded-lg p-3"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="bg-purple-light flex h-8 w-8 items-center justify-center rounded-full">
-                    <FaStore className="text-purple text-sm" />
-                  </div>
-                  <span className="text-font-primary font-medium">
-                    {tenant.name}
-                  </span>
-                </div>
-                <span className="text-font-light text-sm">
-                  {new Date(tenant.joined).toLocaleDateString()}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Category Info */}
@@ -523,6 +714,122 @@ const CategoryDetailsPage = () => {
             </div>
           </div>
         </div>
+        <div className="bg-card-background rounded-2xl p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-font-primary text-lg font-semibold">
+              Attribute Filters
+            </h3>
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex items-center gap-2"
+              onClick={() => setIsAttributeModalOpen(true)}
+            >
+              <FaPlus className="text-sm" />
+              Add
+            </Button>
+          </div>
+
+          <div className="space-y-3">
+            {attributeFilters.map((attribute) => (
+              <div
+                key={attribute.id}
+                className={`bg-inner-card rounded-lg p-4 ${
+                  attribute.isAssigned ? 'border-purple border-l-4' : ''
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-font-primary font-medium">
+                        {attribute.name}
+                      </h4>
+                      <Badge variant="outline" className="text-xs">
+                        {attribute.type}
+                      </Badge>
+                    </div>
+                    <span className="text-font-light text-sm">
+                      {attribute.values.length} values
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleAttributeAssignment(attribute.id)}
+                      className={`h-8 w-8 p-0 ${
+                        attribute.isAssigned ? 'text-purple' : 'text-gray-400'
+                      }`}
+                    >
+                      {attribute.isAssigned ? (
+                        <FaToggleOn className="text-lg" />
+                      ) : (
+                        <FaToggleOff className="text-lg" />
+                      )}
+                    </Button>
+
+                    {attribute.isAssigned && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleAttributeFilter(attribute.id)}
+                        className={`h-8 w-8 p-0 ${
+                          attribute.isFilter
+                            ? 'text-green-500'
+                            : 'text-gray-400'
+                        }`}
+                      >
+                        <FaFilter className="text-sm" />
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-purple-light/20 mt-4 rounded-lg p-3">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-font-light">
+                {attributeFilters.filter((attr) => attr.isAssigned).length}{' '}
+                assigned
+              </span>
+              <span className="text-font-light">
+                {attributeFilters.filter((attr) => attr.isFilter).length}{' '}
+                filters
+              </span>
+            </div>
+          </div>
+        </div>
+        {/* Recent Tenants */}
+        <div className="bg-card-background rounded-2xl p-6">
+          <h3 className="text-font-primary mb-4 text-lg font-semibold">
+            Recent Stores
+          </h3>
+          <div className="space-y-3">
+            {category.recentTenants.map((tenant, index) => (
+              <div
+                key={index}
+                className="bg-inner-card flex items-center justify-between rounded-lg p-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="bg-purple-light flex h-8 w-8 items-center justify-center rounded-full">
+                    <FaStore className="text-purple text-sm" />
+                  </div>
+                  <span className="text-font-primary font-medium">
+                    {tenant.name}
+                  </span>
+                </div>
+                <span className="text-font-light text-sm">
+                  {new Date(tenant.joined).toLocaleDateString()}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Attribute Filters */}
       </div>
     </div>
   );

@@ -89,65 +89,70 @@ const DogsFoodPage = () => {
     },
   ];
   return (
-    <div className="responsive-container mt-10">
-      <div>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/components">Dogs</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Food</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="mb-6 mt-6 font-bold text-3xl">14 Items</div>
-        <Select>
-          <SelectTrigger className="w-[120px]">
-            <SelectValue placeholder="Sort By" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Sort By</SelectLabel>
-              <SelectItem value="apple">Newest</SelectItem>
-              <SelectItem value="banana">Popular</SelectItem>
-              <SelectItem value="blueberry">Oldest</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-3">
-          <ProductListingFilterCard />
+    <>
+      <div className="responsive-container mt-10">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/components">Dogs</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Food</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
-        <div className="col-span-9">
-          <div className="grid grid-cols-3 gap-4">
-            {trendingProducts.map((product, index) => (
-              <div key={index} className="">
-                <div className="h-full">
-                  <ProductCard
-                    category={product.category}
-                    price={product.price}
-                    image={product.image}
-                    title={product.name}
-                    description={product.description}
-                    badge={product.badge}
-                  />
+        <div className="flex items-center justify-between">
+          <div className="mb-6 mt-6 font-bold text-3xl">14 Items</div>
+          <Select>
+            <SelectTrigger className="w-[120px]">
+              <SelectValue placeholder="Sort By" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Sort By</SelectLabel>
+                <SelectItem value="apple">Newest</SelectItem>
+                <SelectItem value="banana">Popular</SelectItem>
+                <SelectItem value="blueberry">Oldest</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="grid grid-cols-12 gap-5">
+          <div className="col-span-3">
+            <ProductListingFilterCard />
+          </div>
+          <div className="col-span-9">
+            <div className="grid grid-cols-3 gap-4">
+              {trendingProducts.map((product, index) => (
+                <div key={index} className="">
+                  <div className="h-full">
+                    <ProductCard
+                      category={product.category}
+                      price={product.price}
+                      image={product.image}
+                      title={product.name}
+                      description={product.description}
+                      badge={product.badge}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className="justify-center items-center flex my-10 text-lg cursor-pointer text-font-light ">
+        <div>Load More</div>
+      </div>
+    </>
   );
 };
 

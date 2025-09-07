@@ -164,9 +164,7 @@
 .dark .apexcharts-tooltip {
   color: #9ca3af !important; /* Tailwind slate-400 */
   background: #202020 !important;
-}
-
-/* Global body and base styles */
+}/* Global body and base styles */
 
 @layer base {
   * {

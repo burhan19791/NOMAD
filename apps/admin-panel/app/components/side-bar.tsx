@@ -27,6 +27,8 @@ import SideBarExpandableLink from './navbar-expandable-link';
 import { IoPerson } from 'react-icons/io5';
 import { FaFileLines } from 'react-icons/fa6';
 import { IoIosStats } from 'react-icons/io';
+import { MdCategory } from 'react-icons/md';
+import { BiSolidDetail } from 'react-icons/bi';
 
 type Props = {
   isOpen: boolean;
@@ -55,23 +57,24 @@ const SideBar = ({ isOpen }: Props) => {
         className={`bg-card-background fixed top-0 z-50 min-h-screen w-64 -translate-x-full flex-col p-4 pt-7 font-medium transition-all duration-300 lg:flex lg:w-20 lg:translate-x-0 xl:w-64 xl:p-10 xl:pl-5 ${isOpen ? 'translate-x-0' : '-translate-x-full'} `}
       >
         {/* logo small show thing */}
-        <div className="mb-10 flex items-center gap-1.5">
+        <div className="mb-6 flex items-center gap-1.5">
           <div className="relative top-0 right-0 mt-0.5 h-8 w-8 lg:h-12 lg:w-12 xl:hidden">
             {isDark ? (
-              <Image src={'/images/tork-symbol-logo.svg'} alt="Logo" fill />
+              <Image src={'/images/core-c.svg'} alt="Logo" fill />
             ) : (
-              <Image src={'/images/tork-symbol-logo.svg'} alt="Logo" fill />
+              <Image src={'/images/core-c.svg'} alt="Logo" fill />
             )}
           </div>
-          <div className="relative h-14 w-28 lg:hidden xl:block">
+          <div className="relative ml-4 h-14 w-30 lg:hidden xl:block">
             {isDark ? (
-              <Image src={'/images/tork-dark-logo.svg'} alt="Logo" fill />
+              <Image src={'/images/core.svg'} alt="Logo" fill />
             ) : (
-              <Image src={'/images/tork-light-logo.svg'} alt="Logo" fill />
+              <Image src={'/images/core.svg'} alt="Logo" fill />
             )}
           </div>
         </div>
         <div className="text-font-light font-regular flex h-[550px] flex-col gap-4 overflow-y-scroll">
+          {/* Dashboard */}
           <div>
             <Link
               href="/"
@@ -86,146 +89,208 @@ const SideBar = ({ isOpen }: Props) => {
               <p className="lg:hidden xl:block">Dashboard</p>
             </Link>
           </div>
-          <SideBarExpandableLink
-            activeLink={activeLink}
-            setActiveLink={setActiveLink}
-            mainLabel="Products"
-            mainIcon={<FaShoppingBag />}
-            items={[
-              { label: 'List View', route: '/products/list' },
-              { label: 'Overview', route: '/products/overview' },
-              { label: 'Create Product', route: '/products/create' },
-              { label: 'Categories', route: '/categories' },
-            ]}
-          />
-          <SideBarExpandableLink
-            activeLink={activeLink}
-            setActiveLink={setActiveLink}
-            mainLabel="Orders"
-            mainIcon={<FaShoppingCart />}
-            items={[
-              { label: 'List View', route: '/orders/list' },
-              { label: 'OverView', route: '/orders/overview' },
-            ]}
-          />
-          <SideBarExpandableLink
-            activeLink={activeLink}
-            setActiveLink={setActiveLink}
-            mainLabel="Shipping"
-            mainIcon={<FaTruckMoving />}
-            items={[
-              { label: 'List View', route: '/shipping/list' },
-              { label: 'Shipments', route: '/shipping/shipments' },
-            ]}
-          />
-          <SideBarExpandableLink
-            activeLink={activeLink}
-            setActiveLink={setActiveLink}
-            mainLabel="Invoices"
-            mainIcon={<FaFileLines />}
-            items={[
-              { label: 'List View', route: '/invoice/list' },
-              { label: 'Overview', route: '/invoice/overview' },
-            ]}
-          />
-          <div>
-            <Link
-              href="/customers"
-              onClick={() => setActiveLink('customers')}
-              className={clsx(
-                'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
-                activeLink === 'customers' &&
-                  'bg-purple text-white hover:text-white',
-              )}
-            >
-              <IoPerson className="text-lg md:text-2xl xl:text-lg" />
-              <p className="lg:hidden xl:block">Customers</p>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/coupons"
-              onClick={() => setActiveLink('coupons')}
-              className={clsx(
-                'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
-                activeLink === 'coupons' &&
-                  'bg-purple text-white hover:text-white',
-              )}
-            >
-              <FaTags className="text-lg md:text-2xl xl:text-lg" />
-              <p className="lg:hidden xl:block">Coupons</p>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/sellers"
-              onClick={() => setActiveLink('sellers')}
-              className={clsx(
-                'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
-                activeLink === 'sellers' &&
-                  'bg-purple text-white hover:text-white',
-              )}
-            >
-              <RiSpyFill className="text-lg md:text-2xl xl:text-lg" />
-              <p className="lg:hidden xl:block">Sellers</p>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/analytics"
-              onClick={() => setActiveLink('analytics')}
-              className={clsx(
-                'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
-                activeLink === 'analytics' &&
-                  'bg-purple text-white hover:text-white',
-              )}
-            >
-              <IoIosStats className="text-lg md:text-2xl xl:text-lg" />
-              <p className="lg:hidden xl:block">Analytics</p>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/calendar"
-              onClick={() => setActiveLink('calendar')}
-              className={clsx(
-                'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
-                activeLink === 'calendar' &&
-                  'bg-purple text-white hover:text-white',
-              )}
-            >
-              <FaCalendarAlt className="text-lg md:text-2xl xl:text-lg" />
-              <p className="lg:hidden xl:block">Calendar</p>
-            </Link>
+
+          {/* E-commerce Section */}
+          <div className="space-y-1">
+            <div className="px-3 py-2 sm:block md:block lg:hidden xl:block">
+              <h3 className="text-font-light text-xs font-semibold tracking-wider uppercase">
+                E-commerce
+              </h3>
+            </div>
+            <SideBarExpandableLink
+              activeLink={activeLink}
+              setActiveLink={setActiveLink}
+              mainLabel="Products"
+              mainIcon={<FaShoppingBag />}
+              items={[
+                { label: 'List View', route: '/products/list' },
+                { label: 'Overview', route: '/products/overview' },
+                { label: 'Create Product', route: '/products/create' },
+              ]}
+            />
+            <SideBarExpandableLink
+              activeLink={activeLink}
+              setActiveLink={setActiveLink}
+              mainLabel="Orders"
+              mainIcon={<FaShoppingCart />}
+              items={[
+                { label: 'List View', route: '/orders/list' },
+                { label: 'OverView', route: '/orders/overview' },
+              ]}
+            />
+            <SideBarExpandableLink
+              activeLink={activeLink}
+              setActiveLink={setActiveLink}
+              mainLabel="Shipping"
+              mainIcon={<FaTruckMoving />}
+              items={[
+                { label: 'List View', route: '/shipping/list' },
+                { label: 'Shipments', route: '/shipping/shipments' },
+              ]}
+            />
+            <SideBarExpandableLink
+              activeLink={activeLink}
+              setActiveLink={setActiveLink}
+              mainLabel="Invoices"
+              mainIcon={<FaFileLines />}
+              items={[
+                { label: 'List View', route: '/invoice/list' },
+                { label: 'Overview', route: '/invoice/overview' },
+              ]}
+            />
+            <div>
+              <Link
+                href="/customers"
+                onClick={() => setActiveLink('customers')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'customers' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <IoPerson className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Customers</p>
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="/coupons"
+                onClick={() => setActiveLink('coupons')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'coupons' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <FaTags className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Coupons</p>
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="/sellers"
+                onClick={() => setActiveLink('sellers')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'sellers' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <RiSpyFill className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Sellers</p>
+              </Link>
+            </div>
           </div>
 
-          <div>
-            <Link
-              href="/kanban"
-              onClick={() => setActiveLink('kanban')}
-              className={clsx(
-                'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
-                activeLink === 'kanban' &&
-                  'bg-purple text-white hover:text-white',
-              )}
-            >
-              <TbLayoutKanbanFilled className="text-lg md:text-2xl xl:text-lg" />
-              <p className="lg:hidden xl:block">Kanban</p>
-            </Link>
+          {/* Analytics */}
+          <div className="space-y-1">
+            <div className="px-3 py-2 sm:block md:block lg:hidden xl:block">
+              <h3 className="text-font-light text-xs font-semibold tracking-wider uppercase">
+                Analytics
+              </h3>
+            </div>
+            <div>
+              <Link
+                href="/analytics"
+                onClick={() => setActiveLink('analytics')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'analytics' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <IoIosStats className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Analytics</p>
+              </Link>
+            </div>
           </div>
-          <div>
-            <Link
-              href="/auth-page"
-              onClick={() => setActiveLink('auth')}
-              className={clsx(
-                'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
-                activeLink === 'auth' &&
-                  'bg-purple text-white hover:text-white',
-              )}
-            >
-              <FaLock className="text-lg md:text-2xl xl:text-lg" />
-              <p className="lg:hidden xl:block">Auth</p>
-            </Link>
+
+          {/* Apps */}
+          <div className="space-y-1">
+            <div className="px-3 py-2 sm:block md:block lg:hidden xl:block">
+              <h3 className="text-font-light text-xs font-semibold tracking-wider uppercase">
+                Apps
+              </h3>
+            </div>
+            <div>
+              <Link
+                href="/calendar"
+                onClick={() => setActiveLink('calendar')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'calendar' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <FaCalendarAlt className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Calendar</p>
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="/kanban"
+                onClick={() => setActiveLink('kanban')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'kanban' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <TbLayoutKanbanFilled className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Kanban</p>
+              </Link>
+            </div>
+          </div>
+
+          {/* Set Up */}
+          <div className="space-y-1">
+            <div className="px-3 py-2 sm:block md:block lg:hidden xl:block">
+              <h3 className="text-font-light text-xs font-semibold tracking-wider uppercase">
+                Set Up
+              </h3>
+            </div>
+            <div>
+              <Link
+                href="/categories"
+                onClick={() => setActiveLink('categories')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'categories' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <MdCategory className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Categories</p>
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="/attributes"
+                onClick={() => setActiveLink('attributes')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'attributes' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <BiSolidDetail className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Attributes</p>
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="/auth-page"
+                onClick={() => setActiveLink('auth')}
+                className={clsx(
+                  'hover:text-purple flex items-center gap-2.5 rounded-md p-2.5 pl-3 transition-all',
+                  activeLink === 'auth' &&
+                    'bg-purple text-white hover:text-white',
+                )}
+              >
+                <FaLock className="text-lg md:text-2xl xl:text-lg" />
+                <p className="lg:hidden xl:block">Auth</p>
+              </Link>
+            </div>
           </div>
         </div>
 
