@@ -18,6 +18,7 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
+import { Loader2 } from "lucide-react";
 
 const DogsFoodPage = () => {
   const trendingProducts = [
@@ -150,7 +151,10 @@ const DogsFoodPage = () => {
         </div>
       </div>
       <div className="justify-center items-center flex my-10 text-lg cursor-pointer text-font-light ">
-        <div>Load More</div>
+        <div className="flex items-center justify-center gap-2">
+          <div>Load More</div>
+          <Loader2 className="h-5 w-5 animate-spin text-primary" />
+        </div>
       </div>
     </>
   );
