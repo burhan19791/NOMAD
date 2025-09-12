@@ -207,7 +207,6 @@ const AttributeFilterCard = ({
                       />
                       {createFormData.values.length > 1 && (
                         <Button
-                          type="button"
                           variant="ghost"
                           size="sm"
                           onClick={() => removeValue(index)}

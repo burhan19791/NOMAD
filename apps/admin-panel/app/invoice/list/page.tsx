@@ -1,10 +1,13 @@
 'use client';
 
 import CardTitle from '@/app/components/card-title';
-import { Breadcrumb, BreadcrumbItem, Button } from 'flowbite-react';
+import { Breadcrumb, BreadcrumbItem } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 import {
-  FaDownload, FaFileInvoice, FaChartLine,
-  FaClock
+  FaDownload,
+  FaFileInvoice,
+  FaChartLine,
+  FaClock,
 } from 'react-icons/fa';
 import { TiPlus } from 'react-icons/ti';
 import { MdPrint } from 'react-icons/md';
@@ -44,7 +47,7 @@ const InvoicesList = () => {
           textColor="text-amber-100"
         />
 
-        <InvoiceCard    
+        <InvoiceCard
           title="Invoice Templates"
           description="Customize and manage invoice designs"
           icon={<FaFileInvoice className="text-xl" />}
@@ -59,15 +62,24 @@ const InvoicesList = () => {
         <div className="col-span-12 flex items-center justify-between">
           <CardTitle title="Invoices List" />
           <div className="flex items-center gap-2 md:gap-4">
-            <Button className="dark:hover:bg-inner-card dark:border-inner-card dark:bg-inner-card text-font-primary gap-2 border border-gray-300 bg-white px-3 py-2 hover:bg-gray-200 md:px-4 md:py-5">
+            <Button
+              variant="outline"
+              className="gap-2 px-3 py-2 md:px-4 md:py-5"
+            >
               <FaDownload />
               <div className="hidden md:flex">Download</div>
             </Button>
-            <Button className="dark:hover:bg-inner-card dark:border-inner-card dark:bg-inner-card text-font-primary gap-2 border border-gray-300 bg-white px-3 py-2 hover:bg-gray-200 md:px-4 md:py-5">
+            <Button
+              variant="outline"
+              className="gap-2 px-3 py-2 md:px-4 md:py-5"
+            >
               <MdPrint className="text-lg" />
               <div className="hidden md:flex">Print</div>
             </Button>
-            <Button className="bg-purple dark:bg-purple gap-2 px-3 py-2 text-white hover:bg-purple-700 md:px-4 md:py-5 dark:hover:bg-purple-700">
+            <Button
+              variant="primary"
+              className="gap-2 px-3 py-2 md:px-4 md:py-5"
+            >
               <TiPlus className="text-lg" />
               <div className="hidden md:flex">Create Invoice</div>
             </Button>

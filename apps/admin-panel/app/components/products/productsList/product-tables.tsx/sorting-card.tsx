@@ -1,7 +1,7 @@
 /* "use client";
 
 import clsx from "clsx";
-import { Button } from "flowbite-react";
+import { Button } from "@/components/ui/button";
 import React, { useState, useEffect, useRef } from "react";
 import { FaSlidersH, FaSort } from "react-icons/fa";
 import { HiChevronRight } from "react-icons/hi2";

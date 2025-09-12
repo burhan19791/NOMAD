@@ -20,6 +20,12 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu';
@@ -54,22 +60,32 @@ const SideBar = ({ isOpen }: Props) => {
   return (
     <>
       <nav
-        className={`bg-card-background fixed top-0 z-50 min-h-screen w-64 -translate-x-full flex-col p-4 pt-7 font-medium transition-all duration-300 lg:flex lg:w-20 lg:translate-x-0 xl:w-64 xl:p-10 xl:pl-5 ${isOpen ? 'translate-x-0' : '-translate-x-full'} `}
+        className={`bg-card-background fixed top-0 z-50 min-h-screen w-64 -translate-x-full flex-col p-4 pt-7 font-medium transition-all duration-300 lg:flex lg:w-20 lg:translate-x-0 xl:w-64 xl:p-7 xl:pl-5 ${isOpen ? 'translate-x-0' : '-translate-x-full'} `}
       >
         {/* logo small show thing */}
-        <div className="mb-6 flex items-center gap-1.5">
-          <div className="relative top-0 right-0 mt-0.5 h-8 w-8 lg:h-12 lg:w-12 xl:hidden">
+        <div className="mb-5 flex items-center gap-1.5 md:mb-8 xl:mb-8">
+          <div className="relative top-0 right-0 mt-0.5 hidden h-8 w-8 lg:block lg:h-12 lg:w-12 xl:hidden">
             {isDark ? (
-              <Image src={'/images/core-c.svg'} alt="Logo" fill />
+              <Image
+                className="cursor-pointer"
+                src={'/images/tork-t-symbol.svg'}
+                alt="Logo"
+                fill
+              />
             ) : (
-              <Image src={'/images/core-c.svg'} alt="Logo" fill />
+              <Image
+                className="cursor-pointer"
+                src={'/images/tork-symbol-logo.svg'}
+                alt="Logo"
+                fill
+              />
             )}
           </div>
-          <div className="relative ml-4 h-14 w-30 lg:hidden xl:block">
+          <div className="relative ml-2 h-14 w-30 lg:hidden xl:block">
             {isDark ? (
-              <Image src={'/images/core.svg'} alt="Logo" fill />
+              <Image src={'/images/tork-dark-logo.svg'} alt="Logo" fill />
             ) : (
-              <Image src={'/images/core.svg'} alt="Logo" fill />
+              <Image src={'/images/tork-light-logo.svg'} alt="Logo" fill />
             )}
           </div>
         </div>
@@ -296,7 +312,7 @@ const SideBar = ({ isOpen }: Props) => {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="dark:hover:bg-inner-card dark:bg-inner-card mt-auto flex w-full items-center gap-2 rounded-md p-2.5 hover:bg-gray-100 focus:outline-none">
+            <button className="dark:bg-inner-card mt-20 lg:mt-auto flex w-full items-center gap-2 rounded-md bg-gray-100 p-2.5 focus:outline-none">
               <div className="h-8 min-w-8 flex-shrink-0 rounded-lg bg-gray-300 dark:bg-gray-700" />
 
               <div className="flex w-full items-center justify-between">
@@ -312,15 +328,14 @@ const SideBar = ({ isOpen }: Props) => {
               </div>
             </button>
           </DropdownMenuTrigger>
-
           <DropdownMenuContent
+            className="w-56 py-2"
             side="top" // dropdown appears above the trigger
             align="start" // align right edge of dropdown to right edge of trigger
             sideOffset={10} // 8px gap from the trigger
             alignOffset={50}
-            className="bg-inner-card dark:border-inner-card w-56 border border-gray-200 px-2.5 py-2"
           >
-            <div className="flex items-center gap-2 p-2">
+            <div className="flex items-center gap-2 p-2 px-4">
               <div className="h-8 min-w-8 rounded-lg bg-gray-300 dark:bg-gray-700"></div>
               <div className="text-left">
                 <p className="text-font-primary mb-1 text-sm leading-none font-bold">
@@ -332,45 +347,26 @@ const SideBar = ({ isOpen }: Props) => {
               </div>
             </div>
 
-            <DropdownMenuGroup className="text-font-primary">
-              <DropdownMenuItem className="mt-2 -mb-1 text-xs" disabled>
-                My Account
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Preferences
-              </DropdownMenuItem>
-
-              <DropdownMenuSeparator className="border-gray-200 dark:border-gray-700" />
-              <DropdownMenuItem className="mt-2 -mb-1 text-xs" disabled>
-                App Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Privacy
-              </DropdownMenuItem>
-              <DropdownMenuItem className="mt-2 -mb-1 text-xs" disabled>
-                Team And Collaboration
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="border-gray-200 dark:border-gray-700" />
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Team
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Manage Members
-              </DropdownMenuItem>
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Invite People
-              </DropdownMenuItem>
-              <DropdownMenuItem className="mt-2 -mb-1 text-xs" disabled />
-              <DropdownMenuSeparator className="border-gray-200 dark:border-gray-700" />
-              <DropdownMenuItem className="dark:hover:bg-card-background hover:bg-gray-100">
-                Log out
-              </DropdownMenuItem>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Preferences</DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>App Settings</DropdownMenuLabel>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Privacy</DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Team And Collaboration</DropdownMenuLabel>
+              <DropdownMenuItem>Manage Members</DropdownMenuItem>
+              <DropdownMenuItem>Invite People</DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

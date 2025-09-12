@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import {
   Breadcrumb,
   BreadcrumbItem,
-  Button,
   Badge,
   Modal,
   TextInput,
@@ -33,6 +32,7 @@ import {
 import SearchCard from '@/app/components/calendar/search-card';
 import StatsCard from '@/app/components/calendar/stats-card';
 import EventsListCard from '@/app/components/calendar/events-list-card';
+import { Button } from '@/components/ui/button';
 
 interface Event {
   id: string;
@@ -537,6 +537,7 @@ const CalendarPage = () => {
 
               <div className="flex items-center gap-3">
                 <Button
+                  variant="outline"
                   onClick={() =>
                     viewMode === 'month' ? navigateMonth(-1) : navigateWeek(-1)
                   }
@@ -555,6 +556,7 @@ const CalendarPage = () => {
                 </span>
 
                 <Button
+                  variant="outline"
                   onClick={() =>
                     viewMode === 'month' ? navigateMonth(1) : navigateWeek(1)
                   }
@@ -564,8 +566,8 @@ const CalendarPage = () => {
                 </Button>
 
                 <Button
+                  variant="primary"
                   onClick={() => setShowEventModal(true)}
-                  className="bg-purple dark:bg-purple text-white hover:bg-purple-700 focus:ring-0 focus:outline-none dark:hover:bg-purple-700"
                 >
                   <FaPlus className="mr-2" />
                   Add Event
@@ -735,18 +737,18 @@ const CalendarPage = () => {
         <ModalFooter className="border-inner-card-border">
           <div className="flex gap-3">
             <Button
+              variant="outline"
               onClick={() => {
                 setShowEventDetails(false);
                 setShowEventModal(true);
               }}
-              className="bg-purple dark:bg-purple px-6 py-2.5 text-white hover:bg-purple-700 focus:ring-0 focus:outline-none dark:hover:bg-purple-700"
             >
               <FaEdit className="mr-2" />
               Edit Event
             </Button>
             <Button
               onClick={() => setShowEventDetails(false)}
-              className="bg-inner-card dark:bg-inner-card text-font-primary hover:bg-inner-card dark:hover:bg-inner-card border-inner-card-border border px-6 py-2.5 focus:ring-0 focus:outline-none"
+              variant="outline"
             >
               Close
             </Button>
@@ -872,16 +874,10 @@ const CalendarPage = () => {
         </ModalBody>
         <ModalFooter className="border-inner-card-border">
           <div className="flex gap-3">
-            <Button
-              onClick={() => setShowEventModal(false)}
-              className="bg-purple dark:bg-purple px-6 py-2.5 text-white hover:bg-purple-700 focus:ring-0 focus:outline-none dark:hover:bg-purple-700"
-            >
+            <Button onClick={() => setShowEventModal(false)} variant="primary">
               {selectedEvent ? 'Update Event' : 'Create Event'}
             </Button>
-            <Button
-              onClick={() => setShowEventModal(false)}
-              className="bg-inner-card dark:bg-inner-card text-font-primary hover:bg-inner-card dark:hover:bg-inner-card border-inner-card-border border px-6 py-2.5 focus:ring-0 focus:outline-none"
-            >
+            <Button onClick={() => setShowEventModal(false)} variant="outline">
               Cancel
             </Button>
           </div>

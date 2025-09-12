@@ -1,9 +1,9 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import {
   Breadcrumb,
   BreadcrumbItem,
-  Button,
   FileInput,
   Select,
   Textarea,
@@ -227,18 +227,12 @@ const CreateProduct = () => {
 
             {/* Action Buttons */}
             <div className="border-inner-card-border flex flex-col gap-3 border-t pt-6 sm:flex-row sm:justify-end">
-              <Link
-                href="/products"
-                className="border-inner-card-border text-font-primary hover:bg-inner-card flex items-center justify-center gap-2 rounded-lg border px-4 py-2 transition-colors"
-              >
+              <Button variant="outline">
                 <IoIosSave className="text-sm" />
                 Save As Draft
-              </Link>
+              </Button>
 
-              <Button
-                size="md"
-                className="bg-purple dark:bg-purple px-6 py-2 text-white hover:bg-purple-700 focus:ring-0 focus:outline-none dark:hover:bg-purple-700"
-              >
+              <Button variant="primary">
                 <FaCheckCircle className="mr-2" />
                 Create Product
               </Button>

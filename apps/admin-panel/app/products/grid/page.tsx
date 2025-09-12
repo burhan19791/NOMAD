@@ -2,7 +2,8 @@
 
 import CardTitle from '@/app/components/card-title';
 import ProductsOverviewCard from '@/app/components/products/productsList/products-overview-cards/products-overview-cards';
-import { Breadcrumb, BreadcrumbItem, Button } from 'flowbite-react';
+import { Breadcrumb, BreadcrumbItem } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 import {
   FaBox,
   FaDollarSign,
@@ -79,7 +80,6 @@ const ProductsList = () => {
       reviewsCount: 112,
       category: 'Apparel',
     },
-    
   ];
 
   return (

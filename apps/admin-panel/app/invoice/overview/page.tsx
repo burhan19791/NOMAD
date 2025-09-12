@@ -1,11 +1,11 @@
 'use client';
 
 import CardTitle from '@/app/components/card-title';
+import { Button } from '@/components/ui/button';
 import {
   Badge,
   Breadcrumb,
   BreadcrumbItem,
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -83,11 +83,17 @@ const InvoiceOverview = () => {
         <div className="col-span-12 mb-4 flex items-center justify-between">
           <CardTitle title="Invoice Overview" />
           <div className="flex items-center gap-4">
-            <Button className="dark:hover:bg-inner-card dark:border-inner-card dark:bg-inner-card text-font-primary gap-2 border border-gray-300 bg-white px-3 py-2 hover:bg-gray-200 md:px-4 md:py-5">
+            <Button
+              variant="outline"
+              className="gap-2 px-3 py-2 md:px-4 md:py-5"
+            >
               <FaDownload />
               <div className="hidden md:flex">Download</div>
             </Button>
-            <Button className="dark:hover:bg-inner-card dark:border-inner-card dark:bg-inner-card text-font-primary gap-2 border border-gray-300 bg-white px-3 py-2 hover:bg-gray-200 md:px-4 md:py-5">
+            <Button
+              variant="outline"
+              className="gap-2 px-3 py-2 md:px-4 md:py-5"
+            >
               <IoPrint className="text-lg" />
               <div className="hidden md:flex">Print</div>
             </Button>
@@ -96,15 +102,13 @@ const InvoiceOverview = () => {
         <div className="bg-card-background rounded-2xl p-10">
           <div className="flex flex-col gap-8">
             {/* Logo + Title */}
-            <div className="flex items-center gap-1.5">
-              <div className={`relative mt-1 h-6 w-6 ${isDark && 'h-8 w-8'}`}>
-                {isDark ? (
-                  <Image src={'/images/Nomad-logo-white.png'} alt="Logo" fill />
-                ) : (
-                  <Image src={'/images/Nomad-logo-black.png'} alt="Logo" fill />
-                )}
-              </div>
-              <h1 className="text-font-primary text-2xl font-bold">NOMAD</h1>
+
+            <div className={`relative mt-1 h-10 w-26 ${isDark && 'h-8 w-8'}`}>
+              {isDark ? (
+                <Image src={'/images/tork-dark-logo.svg'} alt="Logo" fill />
+              ) : (
+                <Image src={'/images/tork-light-logo.svg'} alt="Logo" fill />
+              )}
             </div>
 
             {/* Address + Info */}

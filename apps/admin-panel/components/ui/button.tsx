@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex items-center !py-5 justify-center gap-2 whitespace-nowrap font-semibold rounded-md text-sm transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive",
+  "inline-flex items-center !py-5 justify-center gap-2 whitespace-nowrap font-semibold rounded-md text-sm transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -14,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           'bg-error cursor-pointer text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
-          'border-gray-300 border dark:border-none  focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 dark:focus:ring-offset-0 dark:focus:ring-0 bg-inner-card hover:bg-gray-200 dark:hover:bg-inner-card cursor-pointer',
+          'border-gray-200 border dark:border-none focus:ring-3 focus:ring-gray-200 dark:border-inner-card dark:focus:ring-inner-card/70 dark:hover:bg-inner-card bg-inner-card cursor-pointer',
         secondary:
           'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
         ghost:
@@ -22,7 +22,7 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         // Add your custom variants here
         primary:
-          'bg-purple cursor-pointer text-white hover:bg-purple-700  dark:hover:bg-primary focus:ring-2 dark:focus:ring-offset-0 focus:ring-purple/30 focus:ring-offset-2',
+          'bg-purple cursor-pointer text-white hover:bg-purple-700  dark:hover:bg-primary focus:ring-3 focus:ring-purple/40',
         'primary-outline':
           'border-2 border-primary bg-transparent text-primary hover:bg-purple-200 dark:hover:bg-purple-700 focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
         black:

@@ -109,7 +109,7 @@ const ShipmentsListPage = () => {
       <div className="bg-card-background rounded-2xl p-5">
         <div className="mb-6 flex items-center justify-between">
           <CardTitle title="Shipments List" />
-          <Button className="bg-purple dark:bg-purple hover:bg-purple-700 dark:hover:bg-purple-700">
+          <Button variant="primary">
             <TiPlus className="mr-2" />
             Add Shipment
           </Button>

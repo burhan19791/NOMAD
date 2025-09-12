@@ -13,6 +13,8 @@ import {
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RiMenu3Fill } from 'react-icons/ri';
 import CustomSearch from './custom-search';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   toggleSidebar: () => void;
@@ -46,27 +48,34 @@ const Topbar = ({ toggleSidebar }: Props) => {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <CustomSearch />
-        <div className="dark:bg-inner-card flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gray-100 hover:bg-gray-300">
+        <Button
+          variant="outline"
+          className="h-[35px] min-w-[35px] rounded-full"
+        >
           <FaBell className="text-gray-400" />
-        </div>
-        <div
+        </Button>
+        <Button
+          variant="outline"
           onClick={() => {
             setIsDarkMode(!isDarkMode);
             document.documentElement.classList.toggle('dark');
           }}
-          className="dark:bg-inner-card flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gray-100 hover:bg-gray-300"
+          className="h-[35px] min-w-[35px] rounded-full"
         >
           {isDarkMode ? (
             <FaMoon className="text-gray-400" />
           ) : (
             <FaSun className="text-gray-400" />
           )}
-        </div>
+        </Button>
         <div className="h-7 w-px rounded-full bg-gray-400 lg:hidden"></div>
-        <div className="text-font-light dark:bg-inner-card flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gray-100 hover:bg-gray-300 lg:hidden">
-          <GiHamburgerMenu onClick={toggleSidebar} />
-        </div>
+        <Button
+          variant="outline"
+          onClick={toggleSidebar}
+          className="h-[35px] min-w-[35px] rounded-full lg:hidden"
+        >
+          <GiHamburgerMenu />
+        </Button>
       </div>
     </div>
   );
