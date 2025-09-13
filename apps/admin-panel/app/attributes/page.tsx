@@ -20,6 +20,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CiViewList } from 'react-icons/ci';
+
 import {
   FaPlus,
   FaSearch,
@@ -27,19 +29,16 @@ import {
   FaFilter,
   FaSort,
   FaDownload,
-  FaArchive,
   FaTrash,
+  FaKey,
 } from 'react-icons/fa';
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
-import { DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { DropdownMenuContent } from '@/components/ui/dropdown-menu';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { Eye } from 'lucide-react';
-import { Pencil } from 'lucide-react';
-import { MoreHorizontal } from 'lucide-react';
-import { LuArchive } from 'react-icons/lu';
 import CardTitle from '../components/card-title';
-import { MdPrint } from 'react-icons/md';
+import {
+  MdOutlineCategory,
+  MdOutlineScreenshotMonitor,
+  MdPrint,
+  MdVpnKey,
+} from 'react-icons/md';
 import {
   Pagination,
   PaginationContent,
@@ -49,8 +48,11 @@ import {
   PaginationNext,
   PaginationEllipsis,
 } from '@/components/ui/pagination';
-import { IoEye, IoPencil } from 'react-icons/io5';
-import { HiPencil } from 'react-icons/hi2';
+import {
+  HiOutlineChevronUpDown,
+  HiOutlinePuzzlePiece,
+  HiPencil,
+} from 'react-icons/hi2';
 import {
   Dialog,
   DialogContent,
@@ -61,11 +63,27 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  DrawerContent,
+  DrawerFooter,
+  DrawerDescription,
+  Drawer,
+  DrawerHeader,
+  DrawerTrigger,
+  DrawerTitle,
+  DrawerClose,
+} from '@/components/ui/drawer';
+import { Divide, Minus, Plus } from 'lucide-react';
+import { IoMdKey } from 'react-icons/io';
+import { IoKey } from 'react-icons/io5';
+import { BiGitBranch, BiSolidMessageDetail } from 'react-icons/bi';
+import { LuChevronsUpDown, LuMessageSquareMore } from 'react-icons/lu';
+import { FiList, FiTag } from 'react-icons/fi';
+import { TbRulerMeasure2 } from 'react-icons/tb';
 
 const AttributesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('all');
-  const [selectedStatus, setSelectedStatus] = useState('all');
   const [selected, setSelected] = useState<number[]>([]);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [createFormData, setCreateFormData] = useState({
@@ -79,159 +97,126 @@ const AttributesPage = () => {
   // Mock data
   const attributes = [
     {
-      id: 1,
       name: 'Size',
+      title: 'Product size variations wadawdawdawdawd',
       type: 'Size',
-      description: 'Product size variations',
-      values: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-      productsCount: 1247,
-      status: 'active',
+      attribute_key: 'size',
+      description:
+        'Specifies the different size options that a product can be offered in, such as small, medium, or large. This attribute is commonly used for clothing, shoes, and other items where fit and proportions matter to the customer.',
       createdAt: '2024-01-15',
+      updatedAt: '2024-02-01',
+      active: true,
+      isEnum: true,
+      enum_values: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+      isMeasurement: true,
+      measurementType: 'length',
+      min: 0,
+      max: 200,
+      overview_display: 'pills',
+      filter_display_style: 'dropdown',
+      form_display_style: 'dropdown',
     },
     {
-      id: 2,
       name: 'Color',
+      title: 'Product color options',
       type: 'Color',
-      description: 'Product color options',
-      values: [
-        'Red',
-        'Blue',
-        'Green',
-        'Black',
-        'White',
-        'Yellow',
-        'Purple',
-        'Orange',
-      ],
-      productsCount: 892,
-      status: 'active',
+      attribute_key: 'color',
+      description:
+        'Defines the range of colors in which a product is available. This helps customers easily filter and choose products based on their personal color preference or to match with other items they own.',
       createdAt: '2024-01-16',
+      updatedAt: '2024-02-03',
+      active: true,
+      isEnum: true,
+      enum_values: ['Red', 'Blue', 'Green', 'Black', 'White', 'Yellow'],
+      isMeasurement: false,
+      measurementType: null,
+      min: null,
+      max: null,
+      overview_display: 'pills',
+      filter_display_style: 'dropdown',
+      form_display_style: 'dropdown',
     },
     {
-      id: 3,
       name: 'Material',
+      title: 'Product material type',
       type: 'Text',
-      description: 'Product material type',
-      values: ['Cotton', 'Polyester', 'Leather', 'Denim', 'Silk', 'Wool'],
-      productsCount: 567,
-      status: 'active',
+      attribute_key: 'material',
+      description:
+        'Describes the fabric, substance, or material composition of a product. Customers often rely on this attribute to understand durability, comfort, and overall product quality, such as cotton, leather, or polyester.',
       createdAt: '2024-01-17',
+      updatedAt: '2024-02-05',
+      active: true,
+      isEnum: true,
+      enum_values: ['Cotton', 'Polyester', 'Leather', 'Denim', 'Silk', 'Wool'],
+      isMeasurement: false,
+      measurementType: null,
+      min: null,
+      max: null,
+      overview_display: 'text',
+      filter_display_style: 'dropdown',
+      form_display_style: 'text',
     },
     {
-      id: 4,
       name: 'Brand',
+      title: 'Product brand name',
       type: 'Text',
-      description: 'Product brand name',
-      values: [
-        'Nike',
-        'Adidas',
-        'Apple',
-        'Samsung',
-        'Sony',
-        'LG',
-        'Dell',
-        'HP',
-      ],
-      productsCount: 445,
-      status: 'active',
+      attribute_key: 'brand',
+      description:
+        'Indicates the brand or manufacturer associated with the product. This attribute is key for brand-conscious shoppers who trust certain companies for their quality, design, or reputation.',
       createdAt: '2024-01-18',
+      updatedAt: '2024-02-07',
+      active: true,
+      isEnum: true,
+      enum_values: ['Nike', 'Adidas', 'Apple', 'Samsung', 'Sony', 'LG'],
+      isMeasurement: false,
+      measurementType: null,
+      min: null,
+      max: null,
+      overview_display: 'dropdown',
+      filter_display_style: 'dropdown',
+      form_display_style: 'dropdown',
     },
     {
-      id: 5,
       name: 'Weight',
+      title: 'Product weight in grams',
       type: 'Number',
-      description: 'Product weight in grams',
-      values: ['100g', '200g', '300g', '500g', '1kg'],
-      productsCount: 234,
-      status: 'inactive',
+      attribute_key: 'weight',
+      description:
+        'Represents the weight of the product, usually measured in grams or kilograms. This is especially important for shipping calculations, fitness products, and any item where weight influences usability.',
       createdAt: '2024-01-19',
+      updatedAt: '2024-02-09',
+      active: false,
+      isEnum: false,
+      enum_values: [],
+      isMeasurement: true,
+      measurementType: 'weight',
+      min: 50,
+      max: 10000,
+      overview_display: 'text',
+      filter_display_style: 'dropdown',
+      form_display_style: 'text',
     },
     {
-      id: 6,
       name: 'Style',
+      title: 'Product style category',
       type: 'Text',
-      description: 'Product style category',
-      values: ['Casual', 'Formal', 'Sporty', 'Vintage', 'Modern'],
-      productsCount: 189,
-      status: 'active',
+      attribute_key: 'style',
+      description:
+        'Categorizes the overall design, fashion, or aesthetic of the product. Customers can use this attribute to shop by taste or occasion, for example casual, sporty, formal, or vintage styles.',
       createdAt: '2024-01-20',
+      updatedAt: '2024-02-11',
+      active: true,
+      isEnum: true,
+      enum_values: ['Casual', 'Formal', 'Sporty', 'Vintage', 'Modern'],
+      isMeasurement: false,
+      measurementType: null,
+      min: null,
+      max: null,
+      overview_display: 'pills',
+      filter_display_style: 'pills',
+      form_display_style: 'pills',
     },
   ];
-
-  const typeOptions = [
-    { value: 'all', label: 'All Types' },
-    { value: 'size', label: 'Size' },
-    { value: 'color', label: 'Color' },
-    { value: 'text', label: 'Text' },
-    { value: 'number', label: 'Number' },
-    { value: 'boolean', label: 'Boolean' },
-  ];
-
-  const statusOptions = [
-    { value: 'all', label: 'All Status' },
-    { value: 'active', label: 'Active' },
-    { value: 'inactive', label: 'Inactive' },
-  ];
-
-  const filteredAttributes = attributes.filter((attribute) => {
-    const matchesSearch =
-      attribute.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      attribute.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType =
-      selectedType === 'all' || attribute.type.toLowerCase() === selectedType;
-    const matchesStatus =
-      selectedStatus === 'all' || attribute.status === selectedStatus;
-
-    return matchesSearch && matchesType && matchesStatus;
-  });
-
-  const toggleSelect = (id: number) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-    );
-  };
-
-  const toggleSelectAll = () => {
-    if (selected.length === filteredAttributes.length) {
-      setSelected([]);
-    } else {
-      setSelected(filteredAttributes.map((attr) => attr.id));
-    }
-  };
-
-  const handleCreateAttribute = () => {
-    // Handle create logic here
-    console.log('Creating attribute:', createFormData);
-    setIsCreateModalOpen(false);
-    setCreateFormData({
-      name: '',
-      type: '',
-      description: '',
-      values: [''],
-      status: 'active',
-    });
-  };
-
-  const addValue = () => {
-    setCreateFormData((prev) => ({
-      ...prev,
-      values: [...prev.values, ''],
-    }));
-  };
-
-  const removeValue = (index: number) => {
-    setCreateFormData((prev) => ({
-      ...prev,
-      values: prev.values.filter((_, i) => i !== index),
-    }));
-  };
-
-  const updateValue = (index: number, value: string) => {
-    setCreateFormData((prev) => ({
-      ...prev,
-      values: prev.values.map((v, i) => (i === index ? value : v)),
-    }));
-  };
 
   return (
     <div className="p-6 lg:ml-20 xl:ml-64">
@@ -257,7 +242,7 @@ const AttributesPage = () => {
             <div>
               <p className="text-font-light text-sm">Active Attributes</p>
               <p className="text-font-primary text-2xl font-bold">
-                {attributes.filter((attr) => attr.status === 'active').length}
+                {attributes.filter((attr) => attr.active === true).length}
               </p>
             </div>
             <div className="bg-green-light flex h-12 w-12 items-center justify-center rounded-xl">
@@ -282,9 +267,7 @@ const AttributesPage = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-font-light text-sm">Products Using</p>
-              <p className="text-font-primary text-2xl font-bold">
-                {attributes.reduce((sum, attr) => sum + attr.productsCount, 0)}
-              </p>
+              <p className="text-font-primary text-2xl font-bold">15</p>
             </div>
             <div className="bg-orange-light bg-error-light flex h-12 w-12 items-center justify-center rounded-xl">
               <FaSort className="text-error text-xl" />
@@ -316,168 +299,37 @@ const AttributesPage = () => {
           <Button variant="outline">
             <FaDownload />
           </Button>
-          <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
-            <DialogTrigger asChild>
+          <Drawer>
+            <DrawerTrigger>
               <Button className="flex items-center gap-2" variant="primary">
                 <FaPlus className="text-sm" />
                 <div className="hidden md:flex">Create Attribute</div>
               </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]">
-              <DialogHeader>
-                <DialogTitle>Create Attribute</DialogTitle>
-                <DialogDescription>
-                  Add a new product attribute with its values
-                </DialogDescription>
-              </DialogHeader>
-
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleCreateAttribute();
-                }}
-                className="space-y-4"
-              >
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="text-font-primary text-sm font-medium"
-                  >
-                    Attribute Name *
-                  </label>
-
-                  <Input
-                    id="name"
-                    placeholder="e.g., Size, Color, Material"
-                    value={createFormData.name}
-                    onChange={(e) =>
-                      setCreateFormData((prev) => ({
-                        ...prev,
-                        name: e.target.value,
-                      }))
-                    }
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="type"
-                    className="text-font-primary text-sm font-medium"
-                  >
-                    Attribute Type *
-                  </label>
-                  <Select
-                    value={createFormData.type}
-                    onValueChange={(value) =>
-                      setCreateFormData((prev) => ({ ...prev, type: value }))
-                    }
-                  >
-                    <SelectTrigger className="mt-2">
-                      <SelectValue placeholder="Select attribute type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Size">Size</SelectItem>
-                      <SelectItem value="Color">Color</SelectItem>
-                      <SelectItem value="Text">Text</SelectItem>
-                      <SelectItem value="Number">Number</SelectItem>
-                      <SelectItem value="Boolean">Boolean</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="description"
-                    className="text-font-primary text-sm font-medium"
-                  >
-                    Description
-                  </label>
-                  <Textarea
-                    id="description"
-                    placeholder="Describe what this attribute is for..."
-                    value={createFormData.description}
-                    onChange={(e) =>
-                      setCreateFormData((prev) => ({
-                        ...prev,
-                        description: e.target.value,
-                      }))
-                    }
-                    rows={3}
-                  />
-                </div>
-
-                <div>
-                  <label className="text-font-primary text-sm font-medium">
-                    Attribute Values *
-                  </label>
-                  <div className="mt-2 space-y-2">
-                    {createFormData.values.map((value, index) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <Input
-                          placeholder={`Value ${index + 1}`}
-                          value={value}
-                          onChange={(e) => updateValue(index, e.target.value)}
-                          required
-                        />
-                        {createFormData.values.length > 1 && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => removeValue(index)}
-                            className="text-red-500 hover:text-red-700"
-                          >
-                            <FaTrash className="text-sm" />
-                          </Button>
-                        )}
-                      </div>
-                    ))}
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={addValue}
-                      className="mt-2"
-                    >
-                      <FaPlus className="mr-2 text-sm" />
-                      Add Value
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="status"
-                    checked={createFormData.status === 'active'}
-                    onCheckedChange={(checked) =>
-                      setCreateFormData((prev) => ({
-                        ...prev,
-                        status: checked ? 'active' : 'inactive',
-                      }))
-                    }
-                  />
-                  <label
-                    htmlFor="status"
-                    className="text-font-primary text-sm font-medium"
-                  >
-                    Active Status
-                  </label>
-                </div>
-              </form>
-
-              <DialogFooter>
-                <Button
-                  variant="ghost"
-                  onClick={() => setIsCreateModalOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button variant="primary" onClick={handleCreateAttribute}>
-                  Create Attribute
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+            </DrawerTrigger>
+            <DrawerContent side="bottom">
+              <div className="mx-auto w-full max-w-lg">
+                <div className="bg-inner-card mx-auto mb-6 h-2 w-32 rounded-full" />
+                <DrawerHeader className="flex flex-col items-center text-center">
+                  <DrawerTitle>Create An Attribute</DrawerTitle>
+                  <DrawerDescription>
+                    Fill in the details to create a new attribute
+                  </DrawerDescription>
+                  <form>
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="shadcn" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public display name.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  </form>
+                </DrawerHeader>
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
       <div className="bg-card-background overflow-hidden rounded-2xl p-5">
@@ -520,106 +372,288 @@ const AttributesPage = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>
-                  <Checkbox
-                    checked={
-                      selected.length === filteredAttributes.length &&
-                      filteredAttributes.length > 0
-                    }
-                    onCheckedChange={toggleSelectAll}
-                  />
+                  <div className="flex items-center gap-2">
+                    Name
+                    <LuChevronsUpDown />
+                  </div>
                 </TableHead>
-                <TableHead>Name</TableHead>
                 <TableHead>Type</TableHead>
-                <TableHead>Values</TableHead>
-                <TableHead>Products</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>
+                  <div className="flex items-center gap-2">
+                    Created At
+                    <LuChevronsUpDown />
+                  </div>
+                </TableHead>
+                <TableHead>
+                  <div className="flex items-center gap-2">
+                    Updated At
+                    <LuChevronsUpDown />
+                  </div>
+                </TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>Edit</TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
-              {filteredAttributes.map((attribute) => (
-                <TableRow key={attribute.id} className="hover:bg-inner-card">
-                  <TableCell>
-                    <Checkbox
-                      checked={selected.includes(attribute.id)}
-                      onCheckedChange={() => toggleSelect(attribute.id)}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <div>
-                      <div className="text-font-primary">{attribute.name}</div>
-                      <div className="text-font-light text-sm">
-                        {attribute.description}
+              {attributes.map((attribute) => (
+                <Drawer key={attribute.name}>
+                  {/* row becomes the trigger */}
+                  <DrawerTrigger asChild>
+                    <TableRow className="hover:bg-inner-card cursor-pointer">
+                      <TableCell>
+                        <div>
+                          <div className="text-font-primary">
+                            {attribute.name}
+                          </div>
+                          <div className="line-clamp-1">{attribute.title}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2 text-sm">
+                          {attribute.type}
+                          {attribute.isEnum === true && (
+                            <div>
+                              <FiList className="text-xs" />
+                            </div>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="line-clamp-2">
+                          {attribute.description}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="text-nowrap">{attribute.createdAt}</div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="text-nowrap">{attribute.updatedAt}</div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`h-2 w-2 rounded-full ${
+                              attribute.active === true
+                                ? 'bg-green-500'
+                                : 'bg-gray-400'
+                            }`}
+                          />
+                          <span className="text-font-light text-sm capitalize">
+                            {attribute.active === true ? 'Active' : 'Inactive'}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {/* separate edit button so it doesn’t trigger row drawer */}
+                        <button
+                          className="hover:text-primary p-2"
+                          onClick={(e) => {
+                            e.stopPropagation(); // prevent row trigger
+                            console.log('edit clicked');
+                          }}
+                        >
+                          <HiPencil />
+                        </button>
+                      </TableCell>
+                    </TableRow>
+                  </DrawerTrigger>
+
+                  {/* the drawer itself */}
+                  <DrawerContent side="right">
+                    <DrawerHeader>
+                      <div>
+                        <div className="flex items-center gap-3">
+                          <DrawerTitle className="text-font-primary mb-1 text-xl font-semibold">
+                            {attribute.name}
+                          </DrawerTitle>
+                          <div className="text-yellow flex items-center gap-1 leading-none">
+                            <MdVpnKey />
+                            {attribute.attribute_key}
+                          </div>
+                        </div>
+                        <DrawerDescription className="text-font-light">
+                          {attribute.title}
+                        </DrawerDescription>
+                      </div>
+                    </DrawerHeader>
+                    <hr className="dark:border-inner-card mt-6 border-t-1 border-dashed border-gray-300" />
+                    <div className="flex-1 overflow-y-scroll">
+                      {/* Description */}
+                      <div className="px-6 pt-6">
+                        <h3 className="text-font-light mb-4 flex items-center gap-2 text-sm tracking-wide uppercase">
+                          <LuMessageSquareMore className="text-base" />
+                          Description
+                        </h3>
+                        <p className="text-font-primary text-sm leading-relaxed">
+                          {attribute.description}
+                        </p>
+                      </div>
+                      <hr className="dark:border-inner-card my-6 border-t-1 border-dashed border-gray-300" />
+                      {/* Details */}
+                      <div className="px-6">
+                        <h3 className="text-font-light mb-4 flex items-center gap-2 text-sm tracking-wide uppercase">
+                          <HiOutlinePuzzlePiece className="text-base" />
+                          Attribute Details
+                        </h3>
+                        <div className="flex flex-col gap-4">
+                          <div className="flex items-center justify-between">
+                            <span className="text-font-primary text-sm">
+                              Data Type
+                            </span>
+                            <span className="text-font-primary text-sm">
+                              {attribute.type}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-font-primary text-sm">
+                              Status
+                            </span>
+                            <span className="text-font-primary text-sm">
+                              {attribute.active === true ? (
+                                <Badge variant="success">Active</Badge>
+                              ) : (
+                                <Badge variant="destructive">Inactive</Badge>
+                              )}
+                            </span>
+                          </div>
+                          {attribute.min != null && (
+                            <div className="flex items-center justify-between">
+                              <span className="text-font-primary text-sm">
+                                Min Value
+                              </span>
+                              <span className="text-font-primary text-sm">
+                                {attribute.min}
+                              </span>
+                            </div>
+                          )}
+                          {attribute.max && (
+                            <div className="flex items-center justify-between">
+                              <span className="text-font-primary text-sm">
+                                Max Value
+                              </span>
+                              <span className="text-font-primary text-sm">
+                                {attribute.max}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {attribute.isEnum && (
+                        <>
+                          <hr className="dark:border-inner-card my-6 border-t-1 border-dashed border-gray-300" />
+
+                          <div className="px-6">
+                            <h3 className="text-font-light mb-4 flex items-center gap-2 text-sm tracking-wide uppercase">
+                              <CiViewList className="text-base" />
+                              Enum Configuration
+                            </h3>
+                            <div className="flex flex-col gap-4">
+                              <div className="flex items-center justify-between">
+                                <span className="text-font-primary text-sm">
+                                  Is Enum
+                                </span>
+                                <span className="text-success text-sm">
+                                  Yes
+                                </span>
+                              </div>
+                              <div className="flex items-start justify-between">
+                                <span className="text-font-primary text-sm">
+                                  Enum Values
+                                </span>
+                                <div className="flex max-w-[60%] flex-wrap justify-end gap-1.5">
+                                  {attribute.enum_values.map((value, idx) => (
+                                    <Badge variant="default" key={idx}>
+                                      {value}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      {attribute.isMeasurement && (
+                        <>
+                          <hr className="dark:border-inner-card my-6 border-t-1 border-dashed border-gray-300" />
+                          <div className="px-6">
+                            <h3 className="text-font-light mb-4 flex items-center gap-2 text-sm tracking-wide uppercase">
+                              <TbRulerMeasure2 className="text-base" />
+                              Measurement Configuration
+                            </h3>
+                            <div className="flex flex-col gap-4">
+                              <>
+                                <div className="flex items-center justify-between">
+                                  <span className="text-font-primary text-sm">
+                                    Is Measurement
+                                  </span>
+                                  <span className="text-success text-sm">
+                                    Yes
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                  <span className="text-font-primary text-sm">
+                                    Measurement Type
+                                  </span>
+                                  <span className="text-font-primary text-sm">
+                                    {attribute.measurementType}
+                                  </span>
+                                </div>
+                              </>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      <hr className="dark:border-inner-card my-6 border-t-1 border-dashed border-gray-300" />
+                      <div className="mb-6 px-6">
+                        <h3 className="text-font-light mb-4 flex items-center gap-2 text-sm tracking-wide uppercase">
+                          <MdOutlineScreenshotMonitor className="text-base" />
+                          Display Styles
+                        </h3>
+                        <div className="flex flex-col gap-4">
+                          <div className="flex items-center justify-between">
+                            <span className="text-font-primary text-sm">
+                              Product Overview Display Style
+                            </span>
+                            <span className="text-font-primary text-sm">
+                              {attribute.overview_display}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-font-primary text-sm">
+                              Form Display Style
+                            </span>
+                            <span className="text-font-primary text-sm">
+                              {attribute.form_display_style}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-font-primary text-sm">
+                              Filter Display Style
+                            </span>
+                            <span className="text-font-primary text-sm">
+                              {attribute.filter_display_style}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="secondary" className="text-sm">
-                      {attribute.type}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex gap-1">
-                      {attribute.values.slice(0, 3).map((value, index) => (
-                        <Badge
-                          key={index}
-                          variant="outline"
-                          className="text-xs"
-                        >
-                          {value}
-                        </Badge>
-                      ))}
-                      {attribute.values.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{attribute.values.length - 3} more
-                        </Badge>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="text-font-primary font-medium">
-                      {attribute.productsCount}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`h-2 w-2 rounded-full ${attribute.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}`}
-                      ></div>
-                      <span className="text-font-light text-sm capitalize">
-                        {attribute.status}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <button className="hover:bg-muted rounded-md p-2 transition">
-                          <MoreHorizontal className="h-5 w-5" />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        className="text-font-light w-36"
-                        align="end"
-                      >
-                        <DropdownMenuItem>
-                          <IoEye className="text-xl" /> View
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <HiPencil className="text-xl" /> Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <FaArchive className="text-xl text-red-600" /> Set
-                          Inactive
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
+
+                    <DrawerFooter className="border-t border-gray-100 pt-4 dark:border-gray-800">
+                      <DrawerClose asChild>
+                        <Button variant="outline" className="w-full">
+                          Close
+                        </Button>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
               ))}
             </TableBody>
           </Table>
-          {filteredAttributes.length === 0 && (
+
+          {/* {filteredAttributes.length === 0 && (
             <div className="py-12 text-center">
               <div className="bg-inner-card mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
                 <FaSearch className="text-font-light text-2xl" />
@@ -631,7 +665,7 @@ const AttributesPage = () => {
                 Try adjusting your search or filter criteria
               </p>
             </div>
-          )}
+          )} */}
           <div className="mt-6 flex justify-end">
             <div className="flex overflow-x-auto sm:justify-center">
               <Pagination>
