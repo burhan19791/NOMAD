@@ -32,15 +32,15 @@ import {
 } from '@/components/ui/pagination';
 import { HiOutlinePuzzlePiece, HiPencil } from 'react-icons/hi2';
 import {
-  DrawerContent,
-  DrawerFooter,
-  DrawerDescription,
-  Drawer,
-  DrawerHeader,
-  DrawerTrigger,
-  DrawerTitle,
-  DrawerClose,
-} from '@/components/ui/drawer';
+  SheetContent,
+  SheetFooter,
+  SheetDescription,
+  Sheet,
+  SheetHeader,
+  SheetTrigger,
+  SheetTitle,
+  SheetClose,
+} from '@/components/ui/sheet';
 import { LuChevronsUpDown, LuMessageSquareMore } from 'react-icons/lu';
 import { FiList } from 'react-icons/fi';
 import { TbRulerMeasure2 } from 'react-icons/tb';
@@ -240,9 +240,9 @@ const AttributesTable = () => {
 
           <TableBody>
             {attributes.map((attribute) => (
-              <Drawer key={attribute.name}>
+              <Sheet key={attribute.name}>
                 {/* row becomes the trigger */}
-                <DrawerTrigger asChild>
+                <SheetTrigger asChild>
                   <TableRow className="hover:bg-inner-card cursor-pointer">
                     <TableCell>
                       <div>
@@ -288,7 +288,7 @@ const AttributesTable = () => {
                       </div>
                     </TableCell>
                     <TableCell>
-                      {/* separate edit button so it doesn’t trigger row drawer */}
+                      {/* separate edit button so it doesn’t trigger row Sheet */}
                       <button
                         className="hover:text-primary p-2"
                         onClick={(e) => {
@@ -300,28 +300,28 @@ const AttributesTable = () => {
                       </button>
                     </TableCell>
                   </TableRow>
-                </DrawerTrigger>
+                </SheetTrigger>
 
-                {/* the drawer itself */}
-                <DrawerContent side="right">
-                  <DrawerHeader>
-                    <div>
+                {/* the Sheet itself */}
+                <SheetContent side="right" className="">
+                  <SheetHeader>
+                    <div className="flex flex-col items-start px-6">
                       <div className="flex items-center gap-3">
-                        <DrawerTitle className="text-font-primary mb-1 text-xl font-semibold">
+                        <SheetTitle className="text-font-primary mb-1 text-xl font-semibold">
                           {attribute.name}
-                        </DrawerTitle>
+                        </SheetTitle>
                         <div className="text-yellow flex items-center gap-1 leading-none">
                           <MdVpnKey />
                           {attribute.attribute_key}
                         </div>
                       </div>
-                      <DrawerDescription className="text-font-light">
+                      <SheetDescription className="text-font-light">
                         {attribute.title}
-                      </DrawerDescription>
+                      </SheetDescription>
                     </div>
-                  </DrawerHeader>
+                  </SheetHeader>
                   <hr className="dark:border-inner-card mt-6 border-t-1 border-dashed border-gray-300" />
-                  <div className="flex-1 overflow-y-scroll">
+                  <div className="h-full flex-1 overflow-y-scroll">
                     {/* Description */}
                     <div className="px-6 pt-6">
                       <h3 className="text-font-light mb-4 flex items-center gap-2 text-sm tracking-wide uppercase">
@@ -446,7 +446,7 @@ const AttributesTable = () => {
                       </>
                     )}
                     <hr className="dark:border-inner-card my-6 border-t-1 border-dashed border-gray-300" />
-                    <div className="mb-6 px-6">
+                    <div className="mb-20 px-6">
                       <h3 className="text-font-light mb-4 flex items-center gap-2 text-sm tracking-wide uppercase">
                         <MdOutlineScreenshotMonitor className="text-base" />
                         Display Styles
@@ -479,16 +479,8 @@ const AttributesTable = () => {
                       </div>
                     </div>
                   </div>
-
-                  <DrawerFooter className="border-t border-gray-100 pt-4 dark:border-gray-800">
-                    <DrawerClose asChild>
-                      <Button variant="outline" className="w-full">
-                        Close
-                      </Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </DrawerContent>
-              </Drawer>
+                </SheetContent>
+              </Sheet>
             ))}
           </TableBody>
         </Table>

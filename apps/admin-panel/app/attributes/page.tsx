@@ -28,6 +28,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import AttributesTable from '../components/attributes/attribute-table';
 import { cn } from '@/lib/utils';
+import CreateAttributeForm from '../components/attributes/create-attribute-form';
 
 const AttributesPage = () => {
   const attributes = [
@@ -153,19 +154,6 @@ const AttributesPage = () => {
     },
   ];
 
-  const FormSchema = z.object({
-    username: z.string().min(2, {
-      message: 'Username must be at least 2 characters.',
-    }),
-  });
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      username: '',
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {}
   return (
     <div className="p-6 lg:ml-20 xl:ml-64">
       {/* Header */}
@@ -240,53 +228,29 @@ const AttributesPage = () => {
                 <div className="hidden md:flex">Create Attribute</div>
               </Button>
             </DrawerTrigger>
-            <DrawerContent side="bottom">
-              <div className="mx-auto w-full max-w-lg">
-                <div className="bg-inner-card mx-auto mb-6 h-2 w-32 rounded-full" />
-                <DrawerHeader className="flex flex-col items-center text-center">
-                  <DrawerTitle>Create An Attribute</DrawerTitle>
-                  <DrawerDescription>
-                    Fill in the details to create a new attribute
-                  </DrawerDescription>
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="w-2/3 space-y-6"
-                    >
-                      <FormField
-                        control={form.control}
-                        name="username"
-                        render={({ field, fieldState }) => (
-                          <FormItem>
-                            <FormLabel>Username</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="shadcn"
-                                {...field}
-                                className={
-                                  fieldState.error
-                                    ? 'border-red-500 bg-red-50'
-                                    : ''
-                                }
-                              />
-                            </FormControl>
-                            <FormDescription>
-                              This is your public display name.
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <Button type="submit">Submit</Button>
-                    </form>
-                  </Form>
-                </DrawerHeader>
+            <DrawerContent
+              side="bottom"
+              className="bg-background max-h-10/12 px-6 lg:px-10"
+            >
+              <div className="w-full overflow-y-scroll">
+                <div className="mx-auto w-full max-w-[1200px]">
+                  <div className="dark:bg-inner-card bg-card-background mx-auto mb-6 h-2 w-32 rounded-full" />
+                  <DrawerHeader className="flex flex-col items-center text-center">
+                    <DrawerTitle>Create An Attribute</DrawerTitle>
+                    <DrawerDescription>
+                      Fill in the details to create a new attribute
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <div>
+                    <CreateAttributeForm />
+                  </div>
+                </div>
               </div>
             </DrawerContent>
           </Drawer>
         </div>
       </div>
+
       <AttributesTable />
     </div>
   );

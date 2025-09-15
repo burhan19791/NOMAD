@@ -26,7 +26,7 @@ const buttonVariants = cva(
         'primary-outline':
           'border-2 border-primary bg-transparent text-primary hover:bg-purple-200 dark:hover:bg-purple-700 focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
         black:
-          'bg-black cursor-pointer text-white hover:bg-black/80 dark:hover:bg-black/80 focus:ring-2 focus:ring-black/30 focus:ring-offset-2',
+          'bg-black cursor-pointer text-white hover:bg-black/80 dark:hover:bg-black/80 focus:ring-3 focus:ring-black/30 ',
       },
 
       size: {
